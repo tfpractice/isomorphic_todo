@@ -6,17 +6,17 @@ import createLocation            from 'history/lib/createLocation';
 import routes                    from 'routes';
 import { Provider }              from 'react-redux';
 import * as reducers             from 'reducers';
-import promiseMiddleware         from 'lib/promiseMiddleware';
-import fetchComponentData        from 'lib/fetchComponentData';
+import promiseMiddleware         from '../shared/lib/promiseMiddleware';
+import fetchComponentData        from '../shared/lib/fetchComponentData';
 import { createStore,
          combineReducers,
          applyMiddleware }       from 'redux';
 import path                      from 'path';
-
+import mongoose  from 'mongoose';
 const app = express();
 
 if (process.env.NODE_ENV !== 'production') {
-  require('./webpack.dev').default(app);
+  require('../webpack.dev').default(app);
 }
 
 app.use(express.static(path.join(__dirname, 'dist')));
