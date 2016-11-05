@@ -10,7 +10,7 @@ import promiseMiddleware from '../shared/lib/promiseMiddleware';
 import fetchComponentData from '../shared/lib/fetchComponentData';
 import { createStore, combineReducers, applyMiddleware } from 'redux';
 import path from 'path';
-import mongoose from 'mongoose';
+// import mongoose from 'mongoose';
 const app = express();
 
 if (process.env.NODE_ENV !== 'production') {

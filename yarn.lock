@@ -767,6 +767,10 @@ braces@^1.8.2:
     preserve "^0.2.0"
     repeat-element "^1.1.2"
 
+browser-fingerprint@0.0.1:
+  version "0.0.1"
+  resolved "https://registry.yarnpkg.com/browser-fingerprint/-/browser-fingerprint-0.0.1.tgz#8df3cdca25bf7d5b3542d61545d730053fce604a"
+
 browserify-zlib@~0.1.4:
   version "0.1.4"
   resolved "https://registry.yarnpkg.com/browserify-zlib/-/browserify-zlib-0.1.4.tgz#bb35f8a519f600e0fa6b8485241c979d0141fb2d"
@@ -935,7 +939,7 @@ cookie@0.3.1:
   version "0.3.1"
   resolved "https://registry.yarnpkg.com/cookie/-/cookie-0.3.1.tgz#e7e0a1f9ef43b4c8ba925c5c5a96e806d16873bb"
 
-core-js@^1.0.0:
+core-js@^1.0.0, core-js@^1.1.1:
   version "1.2.7"
   resolved "https://registry.yarnpkg.com/core-js/-/core-js-1.2.7.tgz#652294c14651db28fa93bd2d5ff2983a4f08c636"
 
@@ -960,6 +964,14 @@ crypto-browserify@~3.2.6:
     pbkdf2-compat "2.0.1"
     ripemd160 "0.2.0"
     sha.js "2.2.6"
+
+cuid:
+  version "1.3.8"
+  resolved "https://registry.yarnpkg.com/cuid/-/cuid-1.3.8.tgz#4b875e0969bad764f7ec0706cf44f5fb0831f6b7"
+  dependencies:
+    browser-fingerprint "0.0.1"
+    core-js "^1.1.1"
+    node-fingerprint "0.0.2"
 
 d@^0.1.1, d@~0.1.1:
   version "0.1.1"
@@ -2336,6 +2348,10 @@ nan@^2.3.0:
 negotiator@0.6.1:
   version "0.6.1"
   resolved "https://registry.yarnpkg.com/negotiator/-/negotiator-0.6.1.tgz#2b327184e8992101177b28563fb5e7102acd0ca9"
+
+node-fingerprint@0.0.2:
+  version "0.0.2"
+  resolved "https://registry.yarnpkg.com/node-fingerprint/-/node-fingerprint-0.0.2.tgz#31cbabeb71a67ae7dd5a7dc042e51c3c75868501"
 
 node-libs-browser@^0.6.0:
   version "0.6.0"
