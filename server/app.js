@@ -1,18 +1,16 @@
-import express                   from 'express';
-import React                     from 'react';
-import { renderToString }        from 'react-dom/server'
+import express from 'express';
+import React from 'react';
+import { renderToString } from 'react-dom/server'
 import { RoutingContext, match } from 'react-router';
-import createLocation            from 'history/lib/createLocation';
-import routes                    from 'routes';
-import { Provider }              from 'react-redux';
-import * as reducers             from 'reducers';
-import promiseMiddleware         from '../shared/lib/promiseMiddleware';
-import fetchComponentData        from '../shared/lib/fetchComponentData';
-import { createStore,
-         combineReducers,
-         applyMiddleware }       from 'redux';
-import path                      from 'path';
-import mongoose  from 'mongoose';
+import createLocation from 'history/lib/createLocation';
+import routes from 'routes';
+import { Provider } from 'react-redux';
+import * as reducers from 'reducers';
+import promiseMiddleware from '../shared/lib/promiseMiddleware';
+import fetchComponentData from '../shared/lib/fetchComponentData';
+import { createStore, combineReducers, applyMiddleware } from 'redux';
+import path from 'path';
+import mongoose from 'mongoose';
 const app = express();
 
 if (process.env.NODE_ENV !== 'production') {
@@ -21,18 +19,18 @@ if (process.env.NODE_ENV !== 'production') {
 
 app.use(express.static(path.join(__dirname, 'dist')));
 
-app.use( (req, res) => {
+app.use((req, res) => {
   const location = createLocation(req.url);
-  const reducer  = combineReducers(reducers);
-  const store    = applyMiddleware(promiseMiddleware)(createStore)(reducer);
+  const reducer = combineReducers(reducers);
+  const store = applyMiddleware(promiseMiddleware)(createStore)(reducer);
 
   match({ routes, location }, (err, redirectLocation, renderProps) => {
-    if(err) {
+    if (err) {
       console.error(err);
       return res.status(500).end('Internal server error');
     }
 
-    if(!renderProps)
+    if (!renderProps)
       return res.status(404).end('Not found');
 
     function renderView() {
@@ -46,7 +44,8 @@ app.use( (req, res) => {
 
       const initialState = store.getState();
 
-      const HTML = `
+      const HTML =
+        `
       <!DOCTYPE html>
       <html>
         <head>
@@ -67,7 +66,8 @@ app.use( (req, res) => {
       return HTML;
     }
 
-    fetchComponentData(store.dispatch, renderProps.components, renderProps.params)
+    fetchComponentData(store.dispatch, renderProps.components,
+        renderProps.params)
       .then(renderView)
       .then(html => res.end(html))
       .catch(err => res.end(err.message));
