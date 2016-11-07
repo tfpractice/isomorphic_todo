@@ -1,7 +1,7 @@
 import React                from 'react';
 import { render }           from 'react-dom';
 import { Router }           from 'react-router';
-import createBrowserHistory from 'history/lib/createBrowserHistory'
+import createBrowserHistory from 'history/lib/createBrowserHistory';
 import { Provider }         from 'react-redux';
 import * as reducers        from 'reducers';
 import routes               from 'routes';

@@ -1,13 +1,13 @@
 import express from 'express';
 import React from 'react';
-import { renderToString } from 'react-dom/server'
+import { renderToString } from 'react-dom/server';
 import { RoutingContext, match } from 'react-router';
 import createLocation from 'history/lib/createLocation';
 import routes from 'routes';
 import { Provider } from 'react-redux';
 import * as reducers from 'reducers';
-import promiseMiddleware from '../shared/lib/promiseMiddleware';
-import fetchComponentData from '../shared/lib/fetchComponentData';
+import promiseMiddleware from '../imports/lib/promiseMiddleware';
+import fetchComponentData from '../imports/lib/fetchComponentData';
 import { createStore, combineReducers, applyMiddleware } from 'redux';
 
 export const handleRequest = (req, res) => {
