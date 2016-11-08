@@ -26,7 +26,7 @@ module.exports = {
 		new webpack.optimize.UglifyJsPlugin({ compress: { warnings: false, }, }),
 	],
 	node: {
-		fs: 'mock',
+		fs: 'empty',
 		net: 'mock',
 		tls: 'mock',
 		dns: 'mock',
