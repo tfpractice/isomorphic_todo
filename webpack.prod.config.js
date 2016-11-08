@@ -25,4 +25,11 @@ module.exports = {
 		new webpack.DefinePlugin({ 'process.env': { NODE_ENV: '"production"', }, }),
 		new webpack.optimize.UglifyJsPlugin({ compress: { warnings: false, }, }),
 	],
+	node: {
+		fs: 'mock',
+		net: 'mock',
+		tls: 'mock',
+		dns: 'mock',
+		net: 'mock',
+	},
 };
