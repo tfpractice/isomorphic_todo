@@ -1,3 +1,3 @@
 import TaskRoutes from './task';
 
-export { TaskRoutes, PostRoutes };
+export { TaskRoutes };

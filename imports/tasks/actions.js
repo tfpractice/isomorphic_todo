@@ -1,25 +1,35 @@
+import { TaskRoutes } from '../../server';
 import request from 'axios';
-import { API_URL } from './constants';
+import {
+	API_URL,
+	GET_TASKS,
+	CREATE_TASK,
+	EDIT_TASK,
+	DELETE_TASK,
+	TOGGLE_TASK_CHECK,
+	TOGGLE_TASK_PRIVACY
+} from './constants';
 
+console.log(TaskRoutes);
 export const getTasks = () => ({
-	type: 'GET_TASKS',
+	type: GET_TASKS,
 	promise: request.get(API_URL),
 });
 
 export const createTask = (text) => ({
-	type: 'CREATE_TASK',
+	type: CREATE_TASK,
 	promise: request.post(API_URL, { time: Date.now(), text }),
 });
 
 export const editTask = (id, text) => ({
-	type: 'EDIT_TASK',
+	type: EDIT_TASK,
 	id,
 	text,
 	date: Date.now(),
 });
 
 export const deleteTask = (id) => ({
-	type: 'DELETE_TASK',
+	type: DELETE_TASK,
 	id,
 });
 // witch (action.type) {

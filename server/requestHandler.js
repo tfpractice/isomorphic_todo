@@ -3,43 +3,45 @@ import React from 'react';
 import { renderToString } from 'react-dom/server';
 import { RoutingContext, match } from 'react-router';
 import createLocation from 'history/lib/createLocation';
-import routes from 'routes';
+import routes from '../imports/routes';
 import { Provider } from 'react-redux';
 import { todos } from '../imports/todos';
+import { reducer as tasks } from '../imports/tasks';
 
 import promiseMiddleware from '../imports/lib/promiseMiddleware';
 import fetchComponentData from '../imports/lib/fetchComponentData';
 import { createStore, combineReducers, applyMiddleware } from 'redux';
 
 export const handleRequest = (req, res) => {
-	const location = createLocation(req.url);
-	const reducer = combineReducers({ todos });
-	const store = applyMiddleware(promiseMiddleware)(createStore)(reducer);
-
-	match({ routes, location }, (err, redirectLocation, renderProps) => {
-		if (err) {
-			console.error(err);
-			return res.status(500).end('Internal server error');
-		}
-
-		if (!renderProps)
-			return res.status(404).end('Not found');
-
-		function renderView() {
-			// console.log('redirectLocation', redirectLocation);
-			// console.log('renderProps', renderProps);
-			const InitialView = (
-				<Provider store={store}>
+    const location = createLocation(req.url);
+	const reducer = combineReducers({ todos, tasks });
+    const store = applyMiddleware(promiseMiddleware)(createStore)(reducer);
+    
+    match({ routes, location }, (err, redirectLocation, renderProps) => {
+        if (err) {
+            console.error(err);
+            return res.status(500).end('Internal server error');
+        }
+        
+        if (!renderProps)
+         return res.status(404).end('Not found');
+        
+        function renderView() {
+         // console.log('redirectLocation', redirectLocation);
+         // console.log('renderProps', renderProps);
+         // console.log('renderProps', renderProps);
+            const InitialView = (
+             <Provider store={store}>
           <RoutingContext {...renderProps} />
         </Provider>
-			);
-
-			const componentHTML = renderToString(InitialView);
-
-			const initialState = store.getState();
-
-			const HTML =
-				`
+            );
+            
+            const componentHTML = renderToString(InitialView);
+            
+            const initialState = store.getState();
+            
+            const HTML =
+             `
       <!DOCTYPE html>
       <html>
         <head>
@@ -56,14 +58,14 @@ export const handleRequest = (req, res) => {
         </body>
       </html>
       `;
-
-			return HTML;
-		}
-
-		fetchComponentData(store.dispatch, renderProps.components,
-				renderProps.params)
-			.then(renderView)
-			.then(html => res.end(html))
-			.catch(err => res.end(err.message));
-	});
+            
+            return HTML;
+        }
+        
+        fetchComponentData(store.dispatch, renderProps.components,
+          renderProps.params)
+         .then(renderView)
+         .then(html => res.end(html))
+         .catch(err => res.end(err.message));
+    });
 };

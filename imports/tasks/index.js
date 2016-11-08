@@ -1,3 +1,4 @@
-import { Tasks } from './collection';
+import reducer from './reducer';
+import * as actions from './actions';
 import Task from './component';
-export { Task, Tasks };
+export { Task, reducer, actions };

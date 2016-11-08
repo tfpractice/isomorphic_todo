@@ -1,2 +1,5 @@
 import app from './app';
-export { app }
+import { TaskRoutes } from './routes';
+console.log(TaskRoutes);
+
+export { app, TaskRoutes };
