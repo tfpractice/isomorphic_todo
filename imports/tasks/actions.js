@@ -1,4 +1,4 @@
-import { TaskRoutes } from '../../server';
+// import { TaskRoutes } from '../../server';
 import request from 'axios';
 import {
 	API_URL,
@@ -10,7 +10,7 @@ import {
 	TOGGLE_TASK_PRIVACY
 } from './constants';
 
-console.log(TaskRoutes);
+// console.log(TaskRoutes);
 export const getTasks = () => ({
 	type: GET_TASKS,
 	promise: request.get(API_URL),
