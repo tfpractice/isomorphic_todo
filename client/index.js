@@ -6,7 +6,6 @@ import { Provider } from 'react-redux';
 import { todos } from '../imports/todos';
 import routes from '../imports/routes';
 import { promiseMiddleware, immutifyState } from 'lib';
-// import immutifyState from 'lib';
 import { createStore, combineReducers, applyMiddleware } from 'redux';
 
 const initialState = immutifyState(window.__INITIAL_STATE__);
