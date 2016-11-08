@@ -5,14 +5,15 @@ import { RoutingContext, match } from 'react-router';
 import createLocation from 'history/lib/createLocation';
 import routes from 'routes';
 import { Provider } from 'react-redux';
-import * as reducers from 'reducers';
+import { todos } from '../imports/todos';
+
 import promiseMiddleware from '../imports/lib/promiseMiddleware';
 import fetchComponentData from '../imports/lib/fetchComponentData';
 import { createStore, combineReducers, applyMiddleware } from 'redux';
 
 export const handleRequest = (req, res) => {
 	const location = createLocation(req.url);
-	const reducer = combineReducers(reducers);
+	const reducer = combineReducers({ todos });
 	const store = applyMiddleware(promiseMiddleware)(createStore)(reducer);
 
 	match({ routes, location }, (err, redirectLocation, renderProps) => {
@@ -25,8 +26,8 @@ export const handleRequest = (req, res) => {
 			return res.status(404).end('Not found');
 
 		function renderView() {
-			console.log('redirectLocation', redirectLocation);
-			console.log('renderProps', renderProps);
+			// console.log('redirectLocation', redirectLocation);
+			// console.log('renderProps', renderProps);
 			const InitialView = (
 				<Provider store={store}>
           <RoutingContext {...renderProps} />
