@@ -1,15 +1,6 @@
-import React, { PropTypes } from 'react';
+import Main from './main';
+import Home from './home';
+import TodosForm from './todos_form';
+import TodosView from './todos_view';
 
-const Main = ({ children }) => (
-	<div id="main-view">
-        <h1>Todos</h1>
-
-        <hr />
-
-        {children}
-
-      </div>
-);
-
-Main.propTypes = { children: PropTypes.object };
-export default Main;
+export { Main, Home, TodosForm, TodosView, };
