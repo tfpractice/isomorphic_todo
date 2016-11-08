@@ -11,32 +11,34 @@ import fetchComponentData from '../imports/lib/fetchComponentData';
 import { createStore, combineReducers, applyMiddleware } from 'redux';
 
 export const handleRequest = (req, res) => {
-  const location = createLocation(req.url);
-  const reducer = combineReducers(reducers);
-  const store = applyMiddleware(promiseMiddleware)(createStore)(reducer);
+	const location = createLocation(req.url);
+	const reducer = combineReducers(reducers);
+	const store = applyMiddleware(promiseMiddleware)(createStore)(reducer);
 
-  match({ routes, location }, (err, redirectLocation, renderProps) => {
-    if (err) {
-      console.error(err);
-      return res.status(500).end('Internal server error');
-    }
+	match({ routes, location }, (err, redirectLocation, renderProps) => {
+		if (err) {
+			console.error(err);
+			return res.status(500).end('Internal server error');
+		}
 
-    if (!renderProps)
-      return res.status(404).end('Not found');
+		if (!renderProps)
+			return res.status(404).end('Not found');
 
-    function renderView() {
-      const InitialView = (
-        <Provider store={store}>
+		function renderView() {
+			console.log('redirectLocation', redirectLocation);
+			console.log('renderProps', renderProps);
+			const InitialView = (
+				<Provider store={store}>
           <RoutingContext {...renderProps} />
         </Provider>
-      );
+			);
 
-      const componentHTML = renderToString(InitialView);
+			const componentHTML = renderToString(InitialView);
 
-      const initialState = store.getState();
+			const initialState = store.getState();
 
-      const HTML =
-        `
+			const HTML =
+				`
       <!DOCTYPE html>
       <html>
         <head>
@@ -54,13 +56,13 @@ export const handleRequest = (req, res) => {
       </html>
       `;
 
-      return HTML;
-    }
+			return HTML;
+		}
 
-    fetchComponentData(store.dispatch, renderProps.components,
-        renderProps.params)
-      .then(renderView)
-      .then(html => res.end(html))
-      .catch(err => res.end(err.message));
-  });
+		fetchComponentData(store.dispatch, renderProps.components,
+				renderProps.params)
+			.then(renderView)
+			.then(html => res.end(html))
+			.catch(err => res.end(err.message));
+	});
 };
