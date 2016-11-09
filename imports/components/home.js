@@ -6,6 +6,7 @@ import { bindActionCreators } from 'redux';
 import { TodoActions } from '../todos';
 import { actions as TaskActions } from '../tasks';
 import { connect } from 'react-redux';
+console.log('TaskActions',TaskActions);
 const Home = ({ todos, dispatch, tasks }) => (
 
     <div id="todo-list">
@@ -15,18 +16,12 @@ const Home = ({ todos, dispatch, tasks }) => (
         <TodosForm {...bindActionCreators(TodoActions, dispatch)}/>
     </div>
 );
-
+export const needs=[TodoActions.getTodos, TaskActions.fetchTasks]
+// Home.needs= needs;
 Home.propTypes = {
-    todos: PropTypes.any.isRequired,
-    dispatch: PropTypes.func.isRequired
-};
-const mapStateToProps = ({
-    todos,
-    tasks
-}, own) => ({
-    todos,
-    tasks,
-    needs: [TodoActions.getTodos, TaskActions.getTasks]
-});
+   todos: PropTypes.any.isRequired,
+    dispatch: PropTypes.func.isRequired, };
+const mapStateToProps = ({ todos, tasks }, own) =>
+ ({ todos,tasks, needs: [TodoActions.getTodos, TaskActions.fetchTasks] });
 
 export default connect(mapStateToProps)(Home);

@@ -1,5 +1,5 @@
 // import { TaskRoutes } from '../../server';
-import request from 'axios';
+import axios from 'axios';
 import {
     API_URL,
     GET_TASKS,
@@ -9,20 +9,27 @@ import {
     TOGGLE_TASK_CHECK,
     TOGGLE_TASK_PRIVACY
 } from './constants';
-// console.log(TaskRoutes);
-export const getTasks = () => ({ type: GET_TASKS, promise: request.get(API_URL) });
 
-export const createTask = (text) => ({
-    type: CREATE_TASK,
-    promise: request.post(API_URL, {
-        time: Date.now(),
-        text
-    })
-});
+export const update = ({ data })=> (tasks)=> data;
+export const insert = ({ data })=>(tasks)=> tasks.concat(data);
+export const edit = (id)=>(data)=>(tasks)=> tasks.map(t=>t.id === id ? { ...t, ...data } : t);
+export const getTasks = () =>
+ ({ type: GET_TASKS, promise: axios.get(API_URL) });
+
+export const updateTasks = ({ data }) => ({ type:GET_TASKS, curry:update({ data }) });
+export const fetchTasks = ()=>(dispatch)=> {
+    console.log('fetchiing');
+    return axios.get(API_URL).then(updateTasks);
+};
+
+export const createTask = (text) => ({ type: CREATE_TASK,
+    promise: axios.post(API_URL, { time: Date.now(),
+        text, }), });
 
 export const editTask = (id, text) => ({ type: EDIT_TASK, id, text, date: Date.now() });
 
 export const deleteTask = (id) => ({ type: DELETE_TASK, id });
+
 // witch (action.type) {     case 'GET_TODOS':       return new
 // Immutable.List(action.res.data);     case 'CREATE_TODO':       return
 // state.concat(action.res.data.text);     case 'EDIT_TODO':       return

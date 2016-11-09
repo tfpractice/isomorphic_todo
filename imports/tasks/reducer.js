@@ -1,11 +1,11 @@
-import Immutable from 'immutable';
+import {TASK_ACTIONS} from './constants';
 
-const defaultState = new Immutable.List().set(0, 'zero');
+const defaultState = [];
 
 const tasks = (state = defaultState, action) => {
     switch (action.type) {
         case 'GET_TASKS':
-            return new Immutable.List(action.res.data);
+            return action.res.data;
         case 'CREATE_TASK':
             return state.concat(action.res.data.text);
         case 'EDIT_TASK':
@@ -17,4 +17,8 @@ const tasks = (state = defaultState, action) => {
     }
 };
 
+const tasksReducer = (state = defaultState, { type, curry }) =>
+TASK_ACTIONS.has(type) ? curry(state) : state;
+
 export default tasks;
+export {tasksReducer}
