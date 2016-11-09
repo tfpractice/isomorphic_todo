@@ -5,7 +5,6 @@ import createBrowserHistory from 'history/lib/createBrowserHistory';
 import { Provider } from 'react-redux';
 import { todos } from '../imports/todos';
 import { reducer as tasks } from '../imports/tasks';
-
 import routes from '../imports/routes';
 import { promiseMiddleware, immutifyState } from 'lib';
 import { createStore, combineReducers, applyMiddleware } from 'redux';

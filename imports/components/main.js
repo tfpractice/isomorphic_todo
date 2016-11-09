@@ -1,8 +1,8 @@
 import React, { PropTypes }
 from 'react';
 
-const Main = ({ children, }) => (
-  <div id="main-view">
+const Main = ({ children }) => (
+	<div id="main-view" className='container'>
         <h1>Todos</h1>
         <hr />
         {children}
