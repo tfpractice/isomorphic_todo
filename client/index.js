@@ -14,11 +14,11 @@ const initialState = immutifyState(window.__INITIAL_STATE__);
 const history = createBrowserHistory();
 const reducer = combineReducers({ todos, tasks, tasksReducer });
 const store = applyMiddleware(promiseMiddleware, thunk)(createStore)(reducer,
-	initialState);
+    initialState);
 
 render(
-	<Provider store={store}>
+    <Provider store={store}>
     <Router children={routes} history={history} />
   </Provider>,
-	document.getElementById('react-view')
+    document.getElementById('react-view')
 );

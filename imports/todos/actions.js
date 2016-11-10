@@ -1,14 +1,14 @@
-import request from 'axios';
+import axios from 'axios';
 import { API_URL, GET_TODOS, CREATE_TODO, EDIT_TODO, DELETE_TODO, } from './constants';
 
 export const getTodos = () => ({
 	type: GET_TODOS,
-	promise: request.get(API_URL),
+	promise: axios.get(API_URL),
 });
 
 export const createTodo = (text) => ({
 	type: CREATE_TODO,
-	promise: request.post(API_URL, { time: Date.now(), text }),
+	promise: axios.post(API_URL, { time: Date.now(), text }),
 });
 
 export const editTodo = (id, text) => ({

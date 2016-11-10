@@ -9,6 +9,10 @@ import sanitizeHtml from 'sanitize-html';
  * @returns void
  */
 export const getTasks = (req, res) => {
+	console.log('CALLED GETTASKS');
+	console.log('req from GetTasks', Object.keys(req));
+	console.log('res from GetTasks', Object.keys(res));
+	// console.log('rest from GetTasks', rest);
 	Task.find().sort('-dateAdded').exec((err, tasks) => {
 		if (err) {
 			res.status(500).send(err);
@@ -18,6 +22,7 @@ export const getTasks = (req, res) => {
 	});
 };
 
+// console.log('getTasks', getTasks());
 /**
  * Save a task
  * @param req

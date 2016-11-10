@@ -1,11 +1,11 @@
-import {TASK_ACTIONS} from './constants';
+import { TASK_ACTIONS } from './constants';
 
 const defaultState = [];
 
 const tasks = (state = defaultState, action) => {
     switch (action.type) {
         case 'GET_TASKS':
-            return action.res.data;
+            return action.res.data.tasks;
         case 'CREATE_TASK':
             return state.concat(action.res.data.text);
         case 'EDIT_TASK':
@@ -18,7 +18,7 @@ const tasks = (state = defaultState, action) => {
 };
 
 const tasksReducer = (state = defaultState, { type, curry }) =>
-TASK_ACTIONS.has(type) ? curry(state) : state;
+			TASK_ACTIONS.has(type) ? curry(state) : state;
 
 export default tasks;
-export {tasksReducer}
+export { tasksReducer };

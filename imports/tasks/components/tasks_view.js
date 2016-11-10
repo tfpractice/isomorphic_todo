@@ -5,11 +5,9 @@ import React, { PropTypes } from 'react';
 // const currentVal = tasks.get(id);  let text = window.prompt('', currentVal);
 // editTask(id, text); };
 
-const btnStyle = {
-    margin: '1em 0 1em 1em'
-};
+const btnStyle = { margin: '1em 0 1em 1em', };
 const TasksView = ({ tasks }) => (
-    <div className="tasks-list">
+	<div className="tasks-list">
       <p>tasks</p>
         {tasks.map((task, index) => (
             <div style={btnStyle} key={index}>
