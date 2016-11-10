@@ -1,13 +1,17 @@
-import React, { PropTypes }
-from 'react';
+import React, { Component, PropTypes } from 'react';
 
-const Main = ({ children }) => (
-	<div id="main-view" className='container'>
-        <h1>Todos</h1>
-        <hr />
-        {children}
-      </div>
-);
+export default class Main extends Component {
+    render() {
+        return (
+          <div id="main-view" className='container'>
+                <h1>Todos</h1>
+                <hr/>
+                {this.props.children}
+          </div>
+          );
+    }
+}
+;
 
-Main.propTypes = { children: PropTypes.object, };
-export default Main;
+// Main.propTypes = { children: PropTypes.object, };
+// export default Main;
