@@ -8,20 +8,20 @@ import { handleRequest } from './requestHandler';
 
 const app = express();
 if (process.env.NODE_ENV !== 'production') {
-	require('../webpack.dev').default(app);
+    require('../webpack.dev').default(app);
 }
 
 mongoose.Promise = global.Promise;
 
 // MongoDB Connection
 mongoose.connect(serverConfig.mongoURL, (error) => {
-	if (error) {
-		console.error(
-			'Please make sure Mongodb is installed and running!'); // eslint-disable-line no-console
-		throw error;
-	}
+    if (error) {
+        console.error(
+            'Please make sure Mongodb is installed and running!'); // eslint-disable-line no-console
+        throw error;
+    }
 
-	console.log('mongoose connected');
+    console.log('mongoose connected');
 });
 
 app.use(bodyParser.json({ limit: '20mb' }));

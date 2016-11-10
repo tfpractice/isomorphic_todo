@@ -14,37 +14,35 @@ import fetchComponentData from '../imports/lib/fetchComponentData';
 import { createStore, combineReducers, applyMiddleware } from 'redux';
 
 export const handleRequest = (req, res, next) => {
-  const location = createLocation(req.url);
-  const reducer = combineReducers({
-    todos,
-    tasks,
-    tasksReducer,
-  });
-  const store = applyMiddleware(promiseMiddleware, thunk)(createStore)(
-    reducer);
+	const location = createLocation(req.url);
+	const reducer = combineReducers({
+		todos,
+		tasks,
+		tasksReducer,
+	});
+	const store = applyMiddleware(promiseMiddleware, thunk)(createStore)(
+		reducer);
 
-  match({
-    routes,
-    location,
-  }, (err, redirectLocation, renderProps) => {
-    if (err) {
-      console.error('error from match', err);
-      return res.status(500).end('Internal server error');
-    }
+	match({ routes, location, }, (err, redirectLocation, renderProps) => {
+		if (err) {
+			console.error('error from match', err);
+			return res.status(500).end('Internal server error');
+		}
 
-    if (!renderProps)
-      return res.status(404).end('Not found');
+		if (!renderProps)
+			return res.status(404).end('Not found');
 
-    function renderView() {
-      const InitialView = (
-      <Provider store={store}>
+		function renderView() {
+			const InitialView = (
+				<Provider store={store}>
                   <RoutingContext {...renderProps} />
              </Provider>
-      );
+			);
 
-      const componentHTML = renderToString(InitialView);
-      const initialState = store.getState();
-      const HTML = `
+			const componentHTML = renderToString(InitialView);
+			const initialState = store.getState();
+			const HTML =
+				`
             <!DOCTYPE html>
                 <html>
                   <head>
@@ -63,13 +61,13 @@ export const handleRequest = (req, res, next) => {
                   </body>
                 </html>
                      `;
-      return HTML;
-    }
+			return HTML;
+		}
 
-    fetchComponentData(store.dispatch, renderProps.components,
-      renderProps.params)
-      .then(renderView)
-      .then(html => res.end(html))
-      .catch(err => res.end(err.message));
-  });
+		fetchComponentData(store.dispatch, renderProps.components,
+				renderProps.params)
+			.then(renderView)
+			.then(html => res.end(html))
+			.catch(err => res.end(err.message));
+	});
 };
