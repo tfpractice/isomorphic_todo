@@ -19,10 +19,10 @@ const tasks = (state = defaultState, action) => {
 	}
 };
 
-const requestStatus = (rState = initStatus, { type, curry }) =>
+export const requestStatus = (rState = initStatus, { type, curry }) =>
 	TASK_REQUEST_ACTIONS.has(type) ? curry(rState) : rState;
 
-const tasksRequestData = (state = defaultState, { type, curry }) =>
+export const tasksRequestData = (state = defaultState, { type, curry }) =>
 	TASK_ACTIONS.has(type) ? curry(state) : state;
 
 export const tasksReducer = combineReducers({ tasksRequestData, requestStatus });

@@ -5,20 +5,25 @@ import { Router } from 'react-router';
 import createBrowserHistory from 'history/lib/createBrowserHistory';
 import { Provider } from 'react-redux';
 import { todos } from '../imports/todos';
-import { reducer as tasks, tasksReducer } from '../imports/tasks';
+import { reducer as tasks, tasksReducer, requestStatus, tasksRequestData } from '../imports/tasks';
 import routes from '../imports/routes';
 import { promiseMiddleware, immutifyState } from 'lib';
 import { createStore, combineReducers, applyMiddleware } from 'redux';
 
-const initialState = immutifyState(window.__INITIAL_STATE__);
+// const initialState = immutifyState(window.__INITIAL_STATE__);
+const initialState = window.__INITIAL_STATE__;
 const history = createBrowserHistory();
-const reducer = combineReducers({ todos, tasks, tasksReducer });
+const reducer = combineReducers({
+	todos,
+	tasks,
+	tasksReducer,
+});
 const store = applyMiddleware(promiseMiddleware, thunk)(createStore)(reducer,
-    initialState);
+	initialState);
 
 render(
-    <Provider store={store}>
+	<Provider store={store}>
     <Router children={routes} history={history} />
   </Provider>,
-    document.getElementById('react-view')
+	document.getElementById('react-view')
 );

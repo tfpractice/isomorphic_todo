@@ -7,8 +7,7 @@ import createLocation from 'history/lib/createLocation';
 import routes from '../imports/routes';
 import { Provider } from 'react-redux';
 import { todos } from '../imports/todos';
-import { reducer as tasks, tasksReducer } from '../imports/tasks';
-
+import { reducer as tasks, tasksReducer, requestStatus, tasksRequestData } from '../imports/tasks';
 import promiseMiddleware from '../imports/lib/promiseMiddleware';
 import fetchComponentData from '../imports/lib/fetchComponentData';
 import { createStore, combineReducers, applyMiddleware } from 'redux';
@@ -18,10 +17,10 @@ export const handleRequest = (req, res, next) => {
 	const reducer = combineReducers({
 		todos,
 		tasks,
-		tasksReducer,
+		tasksReducer
 	});
-	const store = applyMiddleware(promiseMiddleware, thunk)(createStore)(
-		reducer);
+	const store = applyMiddleware(promiseMiddleware, thunk)(createStore)(reducer);
+	console.log('store', store.getState());
 
 	match({ routes, location, }, (err, redirectLocation, renderProps) => {
 		if (err) {
