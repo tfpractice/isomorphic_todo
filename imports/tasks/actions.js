@@ -19,7 +19,7 @@ import {
 const update = (newTasks) => (tState) => newTasks;
 const insert = ({ data: { task } }) => (tasks) => tasks.concat(task);
 const edit = (id) => (data) => (tasks = []) =>
-	tasks.map(t => t.id === id ? {...t, ...data, } : t);
+	tasks.map(t => t.id === id ? { ...t, ...data, } : t);
 
 export const getTasks = () =>
 	({ type: GET_TASKS, promise: axios.get(`${API_URL}/tasks`), });
@@ -47,19 +47,19 @@ const success = () => TASK_REQUEST_SUCCESS;
 const failure = () => TASK_REQUEST_FAILURE;
 
 export const taskRequestSucess = ({ data: { tasks } }) => (dispatch) => {
-	dispatch({ type: TASK_REQUEST_SUCCESS, curry: success });
-	return dispatch(updateTasks(tasks));
+    dispatch({ type: TASK_REQUEST_SUCCESS, curry: success });
+    return dispatch(updateTasks(tasks));
 };
 
 export const taskRequestFailure = (err) =>
 	({ type: TASK_REQUEST_FAILURE, curry: failure });
 
 export const requestTasks = () => (dispatch) => {
-	dispatch({ type: TASK_REQUEST_PENDING, curry: pending });
-	return axios.get(`${API_URL}/tasks`)
-		.then(res => dispatch(taskRequestSucess(res)))
-		.catch(err => {
-			console.error('there was an error', err);
-			dispatch(taskRequestFailure(err));
-		});;
+    dispatch({ type: TASK_REQUEST_PENDING, curry: pending });
+    return axios.get(`${API_URL}/tasks`)
+     .then(res => dispatch(taskRequestSucess(res)))
+     .catch(err => {
+        console.error('there was an error', err);
+        dispatch(taskRequestFailure(err));
+    });;
 };

@@ -11,18 +11,16 @@ const muiTheme = getMuiTheme({
 		primary3Color: green100,
 	},
 }, {
-	avatar: {
-		borderColor: null,
-	},
+	avatar: { borderColor: null, },
+	userAgent: 'all',
 	// userAgent: req.headers['user-agent'],
 });
 
-class Main extends Component {
+export default class Main extends Component {
 	render() {
 		return (
 			<div id="main-view" className='container'>
-				<RaisedButton label="TodoButton" />
-			 	<h1>Todos</h1>
+                <h1>Todos</h1>
                 <hr/>
                 {this.props.children}
          	 </div>
@@ -30,10 +28,16 @@ class Main extends Component {
 	}
 };
 
+// const MainMui = () => (
+// 	<MuiThemeProvider muiTheme={muiTheme}>
+// 	<Main />
+// </MuiThemeProvider>
+// );
+
 const MainMui = () => (
-	<MuiThemeProvider muiTheme={muiTheme}>
-      <Main />
-    </MuiThemeProvider>
+	<div>
+	<Main />
+	</div>
 );
 // Main.propTypes = { children: PropTypes.object, };
-export default MainMui;
+// export default MainMui;

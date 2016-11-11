@@ -2,7 +2,7 @@ import express from 'express';
 import React from 'react';
 import thunk from 'redux-thunk';
 import { renderToString } from 'react-dom/server';
-import { RoutingContext, match } from 'react-router';
+import { RouterContext, match } from 'react-router';
 import createLocation from 'history/lib/createLocation';
 import routes from '../imports/routes';
 import { Provider } from 'react-redux';
@@ -11,17 +11,34 @@ import { reducer as tasks, tasksReducer, requestStatus, tasksRequestData } from 
 import promiseMiddleware from '../imports/lib/promiseMiddleware';
 import fetchComponentData from '../imports/lib/fetchComponentData';
 import { createStore, combineReducers, applyMiddleware } from 'redux';
+import getMuiTheme from 'material-ui/styles/getMuiTheme';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import RaisedButton from 'material-ui/RaisedButton';
+import { green100, green500, green700 } from 'material-ui/styles/colors';
+
+const muiTheme = getMuiTheme({
+	palette: {
+		primary1Color: green500,
+		primary2Color: green700,
+		primary3Color: green100,
+	},
+}, {
+	avatar: { borderColor: null, },
+	userAgent: 'all',
+	// userAgent: req.headers['user-agent'],
+});
+global.navigator = { userAgent: 'all' };
 
 export const handleRequest = (req, res, next) => {
 	const location = createLocation(req.url);
 	const reducer = combineReducers({
 		todos,
 		tasks,
-		tasksReducer
+		tasksReducer,
 	});
-	const store = applyMiddleware(promiseMiddleware, thunk)(createStore)(reducer);
-	console.log('store', store.getState());
-
+	const store = applyMiddleware(promiseMiddleware, thunk)(createStore)(
+		reducer);
+	// console.log('store', store.getState());
 	match({ routes, location, }, (err, redirectLocation, renderProps) => {
 		if (err) {
 			console.error('error from match', err);
@@ -30,15 +47,20 @@ export const handleRequest = (req, res, next) => {
 
 		if (!renderProps)
 			return res.status(404).end('Not found');
+		// console.log('renderProps', renderProps);
 
 		function renderView() {
 			const InitialView = (
 				<Provider store={store}>
-                  <RoutingContext {...renderProps} />
-             </Provider>
+                  <RouterContext {...renderProps} />
+             	</Provider>
 			);
+			// console.log('InitialView', InitialView);
+			// console.log('RRR', RRR);
+			console.log('RouterContext', RouterContext);
 
 			const componentHTML = renderToString(InitialView);
+			// const componentHTML = renderToString(<div><p>INIT</p></div>);
 			const initialState = store.getState();
 			const HTML =
 				`
@@ -64,8 +86,7 @@ export const handleRequest = (req, res, next) => {
 			return HTML;
 		}
 
-		fetchComponentData(store.dispatch, renderProps.components,
-				renderProps.params)
+		fetchComponentData(store.dispatch, renderProps.components, renderProps.params)
 			.then(renderView)
 			.then(html => res.end(html))
 			.catch(err => res.end(err.message));
