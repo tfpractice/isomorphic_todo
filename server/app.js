@@ -1,4 +1,4 @@
-global.navigator = global.navigator || {};
+// global.navigator = global.navigator || {};
 import express from 'express';
 import path from 'path';
 import bodyParser from 'body-parser';
@@ -29,10 +29,7 @@ app.use(bodyParser.json({ limit: '20mb' }));
 app.use(bodyParser.urlencoded({ limit: '20mb', extended: false }));
 app.use(express.static(path.join(__dirname, 'dist')));
 app.use((req, res, next) => {
-	const userAgent = req.headers['user-agent'] || 'all';
-	global.navigator = global.navigator || { userAgent };
-	console.log(navigator);
-	global.navigator.userAgent = userAgent;
+	global.navigator = { userAgent: req.headers['user-agent'], };
 	next();
 });
 app.use('/api', TaskRoutes);
