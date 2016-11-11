@@ -11,5 +11,4 @@ const Root = (
     </Route>
 );
 console.log('\n ==========ROOT==============\n', Root);
-
 export default Root;

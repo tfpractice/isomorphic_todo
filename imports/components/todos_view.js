@@ -17,7 +17,7 @@ const TodosView = ({ todos, editTodo, deleteTodo, handleEdit }) => (
 );
 
 TodosView.propTypes = {
-	todos: PropTypes.instanceOf(Immutable.List).isRequired,
+	// todos: PropTypes.instanceOf(Immutable.List).isRequired,
 	editTodo: PropTypes.func.isRequired,
 	deleteTodo: PropTypes.func.isRequired,
 };

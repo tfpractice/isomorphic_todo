@@ -28,16 +28,14 @@ export default class Main extends Component {
 	}
 };
 
-// const MainMui = () => (
-// 	<MuiThemeProvider muiTheme={muiTheme}>
-// 	<Main />
-// </MuiThemeProvider>
-// );
-
 const MainMui = () => (
-	<div>
+	<MuiThemeProvider muiTheme={muiTheme}>
 	<Main />
-	</div>
+</MuiThemeProvider>
 );
+
+// const MainMui = () => (
+// <Main />
+// );
 // Main.propTypes = { children: PropTypes.object, };
 // export default MainMui;

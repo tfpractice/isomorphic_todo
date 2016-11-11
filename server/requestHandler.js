@@ -31,14 +31,16 @@ global.navigator = { userAgent: 'all' };
 
 export const handleRequest = (req, res, next) => {
 	const location = createMemoryHistory(req.url);
+	const location2 = createLocation(req.url);
 	const reducer = combineReducers({
 		todos,
 		tasks,
 		tasksReducer,
 	});
+	console.log('\n ==========todos==============\n', todos);
 	const store = applyMiddleware(promiseMiddleware, thunk)(createStore)(
 		reducer);
-	// console.log('store', store.getState());
+	console.log('store', store.getState());
 	match({ routes, location, }, (err, redirectLocation, renderProps) => {
 		if (err) {
 			console.error('error from match', err);
@@ -48,6 +50,8 @@ export const handleRequest = (req, res, next) => {
 		if (!renderProps)
 			return res.status(404).end('Not found');
 		// console.log('renderProps', renderProps);
+		// console.log('\n ==========location==============\n', location);
+		// console.log('\n ==========location2==============\n', location2);
 
 		function renderView() {
 			const InitialView = (
@@ -57,10 +61,9 @@ export const handleRequest = (req, res, next) => {
 			);
 			// console.log('InitialView', InitialView);
 			// console.log('RRR', RRR);
-			console.log('RouterContext', RouterContext);
+			// console.log('RouterContext', RouterContext);
 
 			const componentHTML = renderToString(InitialView);
-			// const componentHTML = renderToString(<div><p>INIT</p></div>);
 			const initialState = store.getState();
 			const HTML =
 				`

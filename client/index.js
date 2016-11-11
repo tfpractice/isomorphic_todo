@@ -1,8 +1,9 @@
 import React from 'react';
 import thunk from 'redux-thunk';
 import { render } from 'react-dom';
-import { Router } from 'react-router';
+// import { Router } from 'react-router';
 import createBrowserHistory from 'history/lib/createBrowserHistory';
+import { createMemoryHistory, browserHistory, Router } from 'react-router';
 import { Provider } from 'react-redux';
 import { todos } from '../imports/todos';
 import { reducer as tasks, tasksReducer, requestStatus, tasksRequestData } from '../imports/tasks';
@@ -26,8 +27,12 @@ const muiTheme = getMuiTheme({
 	// userAgent: req.headers['user-agent'],
 });
 // const initialState = immutifyState(window.__INITIAL_STATE__);
+// browserHistory
 const initialState = window.__INITIAL_STATE__;
-const history = createBrowserHistory();
+console.log('\n ==========initialState==============\n', initialState);
+
+const history = browserHistory;
+const history2 = createBrowserHistory();
 const reducer = combineReducers({
 	todos,
 	tasks,
@@ -35,7 +40,6 @@ const reducer = combineReducers({
 });
 const store = applyMiddleware(promiseMiddleware, thunk)(createStore)(reducer,
 	initialState);
-
 render(
 	<Provider store={store}>
     <Router children={routes} history={history}/>
