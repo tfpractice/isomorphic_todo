@@ -12,11 +12,13 @@ const muiTheme = getMuiTheme({
 	},
 }, {
 	avatar: { borderColor: null, },
+	// userAgent: global.navigator.userAgent,
 	userAgent: 'all',
 	// userAgent: req.headers['user-agent'],
 });
+// console.log('navigator', navigator);
 
-export default class Main extends Component {
+class Main extends Component {
 	render() {
 		return (
 			<div id="main-view" className='container'>
@@ -28,9 +30,9 @@ export default class Main extends Component {
 	}
 };
 
-const MainMui = () => (
+const MainMui = (props) => (
 	<MuiThemeProvider muiTheme={muiTheme}>
-	<Main />
+	<Main {...props}/>
 </MuiThemeProvider>
 );
 
@@ -38,4 +40,4 @@ const MainMui = () => (
 // <Main />
 // );
 // Main.propTypes = { children: PropTypes.object, };
-// export default MainMui;
+export default MainMui;

@@ -16,57 +16,49 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import RaisedButton from 'material-ui/RaisedButton';
 import { green100, green500, green700 } from 'material-ui/styles/colors';
 
-const muiTheme = getMuiTheme({
-	palette: {
-		primary1Color: green500,
-		primary2Color: green700,
-		primary3Color: green100,
-	},
-}, {
-	avatar: { borderColor: null, },
-	userAgent: 'all',
-	// userAgent: req.headers['user-agent'],
+const muiTheme = getMuiTheme({ palette: { primary1Color: green500,
+        primary2Color: green700,
+        primary3Color: green100, }, }, { avatar: { borderColor: null, },
+    userAgent: 'all',
+    // userAgent: req.headers['user-agent'],
 });
 global.navigator = { userAgent: 'all' };
-
+// 
 export const handleRequest = (req, res, next) => {
-	const location = createMemoryHistory(req.url);
-	const location2 = createLocation(req.url);
-	const reducer = combineReducers({
-		todos,
-		tasks,
-		tasksReducer,
-	});
-	console.log('\n ==========todos==============\n', todos);
-	const store = applyMiddleware(promiseMiddleware, thunk)(createStore)(
-		reducer);
-	console.log('store', store.getState());
-	match({ routes, location, }, (err, redirectLocation, renderProps) => {
-		if (err) {
-			console.error('error from match', err);
-			return res.status(500).end('Internal server error');
-		}
-
-		if (!renderProps)
-			return res.status(404).end('Not found');
-		// console.log('renderProps', renderProps);
-		// console.log('\n ==========location==============\n', location);
-		// console.log('\n ==========location2==============\n', location2);
-
-		function renderView() {
-			const InitialView = (
-				<Provider store={store}>
+    const location = createMemoryHistory(req.url);
+    const location2 = createLocation(req.url);
+    const reducer = combineReducers({ todos,
+        tasks,
+        tasksReducer, });
+    const store = applyMiddleware(promiseMiddleware, thunk)(createStore)(
+        reducer);
+    console.log('store', store.getState());
+    match({ routes, location, }, (err, redirectLocation, renderProps) => {
+        if (err) {
+            console.error('error from match', err);
+            return res.status(500).end('Internal server error');
+        }
+        
+        if (!renderProps)
+         return res.status(404).end('Not found');
+     // console.log('renderProps', renderProps);
+     // console.log('\n ==========location==============\n', location);
+     // console.log('\n ==========location2==============\n', location2);
+        
+        function renderView() {
+            const InitialView = (
+             <Provider store={store}>
                   <RouterContext {...renderProps} />
-             	</Provider>
-			);
-			// console.log('InitialView', InitialView);
-			// console.log('RRR', RRR);
-			// console.log('RouterContext', RouterContext);
-
-			const componentHTML = renderToString(InitialView);
-			const initialState = store.getState();
-			const HTML =
-				`
+                </Provider>
+            );
+         // console.log('InitialView', InitialView);
+         // console.log('RRR', RRR);
+         // console.log('RouterContext', RouterContext);
+            
+            const componentHTML = renderToString(InitialView);
+            const initialState = store.getState();
+            const HTML =
+             `
             <!DOCTYPE html>
                 <html>
                   <head>
@@ -86,12 +78,13 @@ export const handleRequest = (req, res, next) => {
                   </body>
                 </html>
                      `;
-			return HTML;
-		}
-
-		fetchComponentData(store.dispatch, renderProps.components, renderProps.params)
-			.then(renderView)
-			.then(html => res.end(html))
-			.catch(err => res.end(err.message));
-	});
+            return HTML;
+        }
+        
+        fetchComponentData(store.dispatch, renderProps.components,
+          renderProps.params)
+         .then(renderView)
+         .then(html => res.end(html))
+         .catch(err => res.end(err.message));
+    });
 };
