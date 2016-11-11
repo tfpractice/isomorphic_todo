@@ -2,7 +2,7 @@ import express from 'express';
 import React from 'react';
 import thunk from 'redux-thunk';
 import { renderToString } from 'react-dom/server';
-import { RouterContext, match } from 'react-router';
+import { createMemoryHistory, match, RouterContext } from 'react-router';
 import createLocation from 'history/lib/createLocation';
 import routes from '../imports/routes';
 import { Provider } from 'react-redux';
@@ -30,7 +30,7 @@ const muiTheme = getMuiTheme({
 global.navigator = { userAgent: 'all' };
 
 export const handleRequest = (req, res, next) => {
-	const location = createLocation(req.url);
+	const location = createMemoryHistory(req.url);
 	const reducer = combineReducers({
 		todos,
 		tasks,
