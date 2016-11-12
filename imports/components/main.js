@@ -9,13 +9,13 @@ class Main extends Component {
 	render() {
 		return (
 			<MuiThemeProvider muiTheme={getMuiTheme({ userAgent: 'all' })}>
-			<div id="main-view" className='container'>
-			<RaisedButton label="todobutton"/>
-                <h1>Todos</h1>
-                <hr/>
-                {this.props.children}
-         	 </div>
-         	 </MuiThemeProvider>
+				<div id="main-view" className='container'>
+					<RaisedButton label="todobutton"/>
+                		<h1>Todos</h1>
+                		<hr/>
+                		{this.props.children}
+         		</div>
+         	</MuiThemeProvider>
 		);
 	};
 }
