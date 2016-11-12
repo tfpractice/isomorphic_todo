@@ -11,11 +11,11 @@ class Main extends Component {
 			<MuiThemeProvider muiTheme={getMuiTheme({ userAgent: 'all' })}>
 				<div id="main-view" className='container'>
 					<RaisedButton label="todobutton"/>
-                		<h1>Todos</h1>
-                		<hr/>
-                		{this.props.children}
-         		</div>
-         	</MuiThemeProvider>
+					<h1>Todos</h1>
+					<hr/>
+					{this.props.children}
+				</div>
+			</MuiThemeProvider>
 		);
 	};
 }

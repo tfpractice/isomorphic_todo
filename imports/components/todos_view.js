@@ -9,13 +9,13 @@ const btnStyle = { margin: '1em 0 1em 1em', };
 
 const TodosView = ({ todos, editTodo, deleteTodo, handleEdit }) => (
 	<div id="todos-list">
-        { todos.map((todo, index) => (
-            <div key={index}>
-                <span>{todo}</span>   
-                <FlatButton label="Delete" data-id={index} onClick={()=>deleteTodo(Number(index))}/>
-                <FlatButton label="Edit" data-id={index} onClick={handleEdit(Number(index))}/>
-             </div>))}
-      </div>
+		{ todos.map((todo, index) => (
+			<div key={index}>
+				<span>{todo}</span>
+				<FlatButton label="Delete" data-id={index} onClick={()=>deleteTodo(Number(index))}/>
+				<FlatButton label="Edit" data-id={index} onClick={handleEdit(Number(index))}/>
+			</div>))}
+	</div>
 );
 
 TodosView.propTypes = {

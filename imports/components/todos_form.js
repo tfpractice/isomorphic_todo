@@ -3,11 +3,11 @@ import { connect } from 'react-redux';
 
 const TodoForm = ({ createTodo, handleSubmit }) => (
 	<div>
-     	<form onSubmit={handleSubmit}>
-        	<input type="text" name='task_input' placeholder="type todo" />
-       		<button value="OK!">  Submit </button>
-    	</form>
-    </div>
+		<form onSubmit={handleSubmit}>
+			<input type="text" name='task_input' placeholder="type todo" />
+			<button value="OK!">  Submit </button>
+		</form>
+	</div>
 );
 
 const mapStateToProps = (state, { createTodo }) => ({

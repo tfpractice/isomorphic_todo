@@ -12,13 +12,13 @@ const props = ({ onSave, text, placeholder, editing, newTodo, handleSubmit });
 
 const TodoTextInput = ({ onSave, text, placeholder, editing, newTodo, }) => (
 	<input className={classnames({ edit: editing, 'new-todo': newTodo, })}
-       type="text"
-       placeholder={placeholder}
-       autoFocus="true"
-       value={text}
-       onBlur={this.handleBlur}
-       onChange={this.handleChange}
-       onKeyDown={handleSubmit} />
+		type="text"
+		placeholder={placeholder}
+		autoFocus="true"
+		value={text}
+		onBlur={this.handleBlur}
+		onChange={this.handleChange}
+		onKeyDown={handleSubmit} />
 );
 
 const handleSubmit = e => {
