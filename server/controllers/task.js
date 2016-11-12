@@ -18,7 +18,6 @@ export const getTasks = (req, res) => {
 	});
 };
 
-// console.log('getTasks', getTasks());
 /**
  * Save a task
  * @param req

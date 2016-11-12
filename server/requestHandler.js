@@ -1,6 +1,7 @@
 import express from 'express';
 import React from 'react';
 import thunk from 'redux-thunk';
+import createLogger from 'redux-logger';
 import { renderToString } from 'react-dom/server';
 import { createMemoryHistory, match, RouterContext } from 'react-router';
 import createLocation from 'history/lib/createLocation';
@@ -16,22 +17,16 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import RaisedButton from 'material-ui/RaisedButton';
 import { green100, green500, green700 } from 'material-ui/styles/colors';
 
-const muiTheme = getMuiTheme({ palette: { primary1Color: green500,
-        primary2Color: green700,
-        primary3Color: green100, }, }, { avatar: { borderColor: null, },
-    userAgent: 'all',
-    // userAgent: req.headers['user-agent'],
-});
-global.navigator = { userAgent: 'all' };
-// 
 export const handleRequest = (req, res, next) => {
     const location = createMemoryHistory(req.url);
     const location2 = createLocation(req.url);
     const reducer = combineReducers({ todos,
         tasks,
-        tasksReducer, });
-    const store = applyMiddleware(promiseMiddleware, thunk)(createStore)(
-        reducer);
+	tasksReducer,
+});
+const logger = createLogger();
+    const store = applyMiddleware(promiseMiddleware, thunk, logger)(
+     createStore)(reducer);
     console.log('store', store.getState());
     match({ routes, location, }, (err, redirectLocation, renderProps) => {
         if (err) {
@@ -41,19 +36,13 @@ export const handleRequest = (req, res, next) => {
         
         if (!renderProps)
          return res.status(404).end('Not found');
-     // console.log('renderProps', renderProps);
-     // console.log('\n ==========location==============\n', location);
-     // console.log('\n ==========location2==============\n', location2);
         
         function renderView() {
             const InitialView = (
-             <Provider store={store}>
-                  <RouterContext {...renderProps} />
+             <Provider store={store} >
+                  <RouterContext {...renderProps}   />
                 </Provider>
             );
-         // console.log('InitialView', InitialView);
-         // console.log('RRR', RRR);
-         // console.log('RouterContext', RouterContext);
             
             const componentHTML = renderToString(InitialView);
             const initialState = store.getState();

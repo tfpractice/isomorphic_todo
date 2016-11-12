@@ -6,14 +6,19 @@ import { bindActionCreators } from 'redux';
 import { TodoActions } from '../todos';
 import { actions as TaskActions } from '../tasks';
 import { connect } from 'react-redux';
+import RaisedButton from 'material-ui/RaisedButton';
 
-const Home = ({ todos, dispatch, tasks }) => (
-    <div id="todo-list">
+const Home = ({ todos, dispatch, tasks }, context) => {
+    return (
+        <div id="todo-list">
+                    <RaisedButton label="HOME BUTTON"/>
+
         <TodosView todos={todos} {...bindActionCreators(TodoActions, dispatch)}/>
                 <TasksView tasks={tasks}/>
         <TodosForm {...bindActionCreators(TodoActions, dispatch)}/>
     </div>
-);
+    );
+};
 
 export const needs = [TodoActions.getTodos, TaskActions.fetchTasks,
     TaskActions.requestTasks,
@@ -24,9 +29,11 @@ Home.propTypes = {
     todos: PropTypes.any.isRequired,
     dispatch: PropTypes.func.isRequired,
 };
+Home.contextTypes = { muiTheme: React.PropTypes.object, };
 
-const mapStateToProps = ({ todos, tasks, tasksReducer }, own) => {
-    // console.log('tasksReducer from Home Component', tasksReducer);
+const mapStateToProps = (state, own) => {
+    const { todos, tasks, tasksReducer } = state;
+
     return ({ todos, tasks, });
 };
 

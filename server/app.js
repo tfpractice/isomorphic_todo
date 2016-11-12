@@ -29,7 +29,7 @@ app.use(bodyParser.json({ limit: '20mb' }));
 app.use(bodyParser.urlencoded({ limit: '20mb', extended: false }));
 app.use(express.static(path.join(__dirname, 'dist')));
 app.use((req, res, next) => {
-	global.navigator = { userAgent: req.headers['user-agent'], };
+	global.navigator = { userAgent: 'all' };
 	next();
 });
 app.use('/api', TaskRoutes);

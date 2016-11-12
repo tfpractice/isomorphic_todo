@@ -43,6 +43,12 @@ export default function(app) {
 			new webpack.optimize.OccurenceOrderPlugin(),
 			new webpack.HotModuleReplacementPlugin(),
 			new webpack.NoErrorsPlugin(),
+			new webpack.DefinePlugin({
+				'process.env': {
+					NODE_ENV: JSON.stringify(
+						process.env.NODE_ENV),
+				},
+			}),
 		],
 		// Some libraries import Node modules but don't use them in the browser.
 		// Tell Webpack to provide empty mocks for them so importing them works.
