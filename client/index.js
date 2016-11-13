@@ -14,15 +14,14 @@ import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import RaisedButton from 'material-ui/RaisedButton';
 import { green100, green500, green700 } from 'material-ui/styles/colors';
+import { reducer as form } from 'redux-form';
 
 const initialState = window.__INITIAL_STATE__;
 
 const history = browserHistory;
-const reducer = combineReducers({
-	todos,
-	tasks,
-	tasksReducer,
-});
+const reducer = combineReducers({ todos,
+    tasks,
+    tasksReducer, form, });
 const logger = createLogger();
 
 const store = applyMiddleware(promiseMiddleware, thunk, logger)

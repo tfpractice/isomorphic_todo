@@ -16,11 +16,12 @@ import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import RaisedButton from 'material-ui/RaisedButton';
 import { green100, green500, green700 } from 'material-ui/styles/colors';
+import { reducer as form } from 'redux-form';
 
 export const handleRequest = (req, res, next) => {
     const location = createMemoryHistory(req.url);
     const location2 = createLocation(req.url);
-    const reducer = combineReducers({ todos, tasks, tasksReducer, });
+    const reducer = combineReducers({ todos, tasks, tasksReducer, form });
     const logger = createLogger();
     const store = applyMiddleware(promiseMiddleware, thunk, logger)(createStore)(reducer);
     console.log('store', store.getState());

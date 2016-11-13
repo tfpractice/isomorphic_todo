@@ -1,2 +1,2 @@
-import {TasksView} from './components'
+import { TasksView } from './components';
 export {TasksView};
