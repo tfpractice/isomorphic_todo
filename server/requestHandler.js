@@ -20,34 +20,30 @@ import { green100, green500, green700 } from 'material-ui/styles/colors';
 export const handleRequest = (req, res, next) => {
     const location = createMemoryHistory(req.url);
     const location2 = createLocation(req.url);
-    const reducer = combineReducers({ todos,
-        tasks,
-	tasksReducer,
-});
-const logger = createLogger();
-    const store = applyMiddleware(promiseMiddleware, thunk, logger)(
-     createStore)(reducer);
+    const reducer = combineReducers({ todos, tasks, tasksReducer, });
+    const logger = createLogger();
+    const store = applyMiddleware(promiseMiddleware, thunk, logger)(createStore)(reducer);
     console.log('store', store.getState());
-    match({ routes, location, }, (err, redirectLocation, renderProps) => {
+    match({ routes,
+        location, }, (err, redirectLocation, renderProps) => {
         if (err) {
             console.error('error from match', err);
             return res.status(500).end('Internal server error');
         }
         
         if (!renderProps)
-         return res.status(404).end('Not found');
+            return res.status(404).end('Not found');
         
         function renderView() {
             const InitialView = (
-             <Provider store={store} >
-                  <RouterContext {...renderProps}   />
+                <Provider store={store}>
+                    <RouterContext {...renderProps}/>
                 </Provider>
             );
             
             const componentHTML = renderToString(InitialView);
             const initialState = store.getState();
-            const HTML =
-             `
+            const HTML = `
             <!DOCTYPE html>
                 <html>
                   <head>
@@ -70,10 +66,6 @@ const logger = createLogger();
             return HTML;
         }
         
-        fetchComponentData(store.dispatch, renderProps.components,
-          renderProps.params)
-         .then(renderView)
-         .then(html => res.end(html))
-         .catch(err => res.end(err.message));
+        fetchComponentData(store.dispatch, renderProps.components, renderProps.params).then(renderView).then(html => res.end(html)).catch(err => res.end(err.message));
     });
 };
