@@ -30,6 +30,7 @@
 		"express": "^4.13.3",
 		"history": "^1.17.0",
 		"immutable": "^3.7.6",
+		"jscs": "^3.0.7",
 		"material-ui": "^0.16.1",
 		"mongoose": "^4.6.6",
 		"object-assign": "^4.0.1",
