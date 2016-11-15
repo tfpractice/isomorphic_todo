@@ -53,8 +53,14 @@ export const createTask = (taskProps) => (dispatch) =>	{
 export const updateTasks = (tasks) => {
     return ({ type: UPDATE_TASKS, curry: update(tasks), });};
 
-export const editTask = (id, text) =>
-  ({ type: EDIT_TASK, id, text, date: Date.now(), });
+export const updateTask = (task)=>
+  ({ type: EDIT_TASK, curry: edit(task) });
+
+export const editTask = ({ _id: id, cuid })=>(dispatch)=> (taskProps) => {
+  console.log('======= ID AND CUID======', id, cuid);
+  return axios.patch(`${API_URL}/tasks/${id}`, taskProps)
+.then(({ data:{ task } })=> dispatch(updateTask(task)))
+.catch(err => console.error('there was an error in update', err));};
 
 export const deleteTask = (id) =>
   ({ type: DELETE_TASK, id, });

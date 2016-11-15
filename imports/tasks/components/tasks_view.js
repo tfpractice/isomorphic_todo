@@ -1,6 +1,6 @@
 import React, { PropTypes } from 'react';
 import FlatButton from 'material-ui/FlatButton';
-import TaskForm from './form';
+import TaskForm, { EditForm } from './form';
 
 const TasksView = ({ tasks, actions }) =>  (
   <div className="tasks-list">
@@ -11,10 +11,10 @@ const TasksView = ({ tasks, actions }) =>  (
         <span>{task.title}</span>
         <FlatButton label="Delete" data-id={index} />
         <FlatButton label="Edit" data-id={index} />
+        <EditForm task={task} onSubmit={actions.editTask(task)}/>
       </div>
     ))}
-  </div>
-   );
+  </div>);
 
 TasksView.contextTypes = { muiTheme: React.PropTypes.object, };
 

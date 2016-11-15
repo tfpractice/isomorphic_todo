@@ -19,5 +19,5 @@ const TaskFormF = ({ handleSubmit }) =>  (
   );
 
 const TaskForm = reduxForm({ form: 'TaskForm' })(TaskFormF);
-
+export const EditForm = reduxForm({ form: 'EditForm' })(TaskFormF);
 export default TaskForm;

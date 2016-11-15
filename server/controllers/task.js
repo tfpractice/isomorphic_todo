@@ -47,11 +47,13 @@ export const addTask = (req, res) => {
   };
 
 export const updateTask = (req, res)=> {
-  Task.findByIdAndUpdate(req.body.id, req.body, { new: true }, (err, task)=> {
+  console.log('===========request params========', req.params);
+  Task.findByIdAndUpdate(req.params.id, req.body, { new: true }, (err, task)=> {
     if (err) {
-      console.log('something bad happened');
+      console.log('something bad happened', err);
       res.status(500).send(err);
     }else {
+      console.log('task returns', task);
       res.json({ task });
     }
   });
