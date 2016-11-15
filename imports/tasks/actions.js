@@ -26,29 +26,20 @@ export const getTasks = () =>
 	({ type: GET_TASKS, promise: axios.get(`${API_URL}/tasks`), });
 
 export const updateTasks = (tasks) => {
-    console.log('===========updateing tasks===========', tasks);
     return ({ type: UPDATE_TASKS, curry: update(tasks), });};
 
 export const insertTask = (task) =>
  ({ type: INSERT_TASK, curry: insert(task), });
 
 export const fetchTasks = () => (dispatch) => {
-    console.log('===========fethcing tasks===========',);
     return axios.get(`${API_URL}/tasks`)
 		.then(({ data:{ tasks } })=> dispatch(updateTasks(tasks)))
     .catch(err => console.error('there was an error', err));};
 
-	// export const createTask = ({ title, description, completed, private }) =>
-		// ({ type: CREATE_TASK, promise: axios.post(API_URL, { time: Date.now(), text, }), });
-
 export const createTask = (args) => (dispatch) =>	{
-    console.log('===========createing task===========', args);
     return axios.post(`${API_URL}/tasks`, args)
-    .then(res=> { console.log('the returned task', res);
-        // return dispatch(insertTask(task));
-    })
+    .then(({ data:{ task } })=> dispatch(insertTask(task)))
     .catch(err => console.error('there was an error in creation', err));};
-// ({ type: CREATE_TASK, promise: axios.post(API_URL, { time: Date.now(), text, }), });
 
 export const editTask = (id, text) =>
 	({ type: EDIT_TASK, id, text, date: Date.now(), });
@@ -61,8 +52,6 @@ const success = () => TASK_REQUEST_SUCCESS;
 const failure = () => TASK_REQUEST_FAILURE;
 
 export const taskRequestSucess = ({ data: { tasks } }) => (dispatch) => {
-    console.log('===========request success tasks===========', tasks);
-    
     dispatch({ type: TASK_REQUEST_SUCCESS, curry: success });
     return dispatch(updateTasks(tasks));
 };
