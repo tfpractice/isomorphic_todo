@@ -7,18 +7,18 @@ import FlatButton from 'material-ui/FlatButton';
 const btnStyle = { border: '1px solid #ff00ff', };
 
 const TodosView = ({ todos, deleteTodo, handleEdit }) => (
-	<div id="todos-list">
-		{ todos.map((todo, index) => (
-			<div key={index}>
-				<span>{todo}</span>
-				<FlatButton style={btnStyle} label="Delete" data-id={index} onClick={()=>deleteTodo(Number(index))}/>
-				<FlatButton style={btnStyle} label="Edit" data-id={index} onClick={handleEdit(Number(index))}/>
-			</div>))}
-	</div>
+  <div id="todos-list">
+    { todos.map((todo, index) => (
+      <div key={index}>
+        <span>{todo}</span>
+        <FlatButton style={btnStyle} label="Delete" data-id={index} onClick={()=>deleteTodo(Number(index))}/>
+        <FlatButton style={btnStyle} label="Edit" data-id={index} onClick={handleEdit(Number(index))}/>
+      </div>))}
+  </div>
 );
 
 TodosView.propTypes = {
-	// todos: PropTypes.instanceOf(Immutable.List).isRequired,
+  // todos: PropTypes.instanceOf(Immutable.List).isRequired,
   // editTodo: PropTypes.func.isRequired,
   deleteTodo: PropTypes.func.isRequired, };
 TodosView.contextTypes = { muiTheme: React.PropTypes.object, };

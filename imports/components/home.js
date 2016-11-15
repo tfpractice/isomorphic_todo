@@ -17,18 +17,14 @@ const Home = ({ todos, dispatch, tasks, tasksReducer }) => {
     );
   };
 
-export const needs = [ TodoActions.getTodos, TaskActions.fetchTasks,
-    TaskActions.requestTasks,
-];
-Home.needs = needs;
-
+Home.needs = [ TodoActions.getTodos, TaskActions.getTasks];
 Home.propTypes = { todos: PropTypes.any.isRequired,
   dispatch: PropTypes.func.isRequired, };
+
 Home.contextTypes = { muiTheme: React.PropTypes.object, };
 
 const mapStateToProps = (state) => {
     const { todos, tasks, tasksReducer } = state;
-    
     return ({ todos, tasks, tasksReducer });
   };
 
