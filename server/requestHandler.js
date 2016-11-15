@@ -22,7 +22,7 @@ export const handleRequest = (req, res, next) => {
     const location = createMemoryHistory(req.url);
     const location2 = createLocation(req.url);
     const reducer = combineReducers({ todos, tasks, tasksReducer, form });
-    const logger = createLogger();
+    const logger = createLogger({ collapsed: (getState, action) => action.type });
     const store = applyMiddleware(promiseMiddleware, thunk, logger)(createStore)(reducer);
     console.log('store', store.getState());
     match({ routes,

@@ -22,7 +22,7 @@ const history = browserHistory;
 const reducer = combineReducers({ todos,
     tasks,
     tasksReducer, form, });
-const logger = createLogger();
+const logger = createLogger({ collapsed: (getState, action) => action.type });
 
 const store = applyMiddleware(promiseMiddleware, thunk, logger)
 	(createStore)(reducer, initialState);

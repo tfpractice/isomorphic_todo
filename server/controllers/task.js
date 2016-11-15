@@ -25,22 +25,25 @@ export const getTasks = (req, res) => {
  * @returns void
  */
 export const addTask = (req, res) => {
-    if (!req.body.task.title || !req.body.task.description) {
-        res.status(403).end();
-    }
     
-    const newTask = new Task(req.body.task);
+    // if (!req.body.task.title || !req.body.task.description) {
+    //     res.status(403).end();
+    // }
+    console.log('NOW IN tHE CONTROLLER');
+    const newTask = new Task(req.body);
+    console.log('newTask', newTask);
     
 	// Let's sanitize inputs
-    newTask.description = sanitizeHtml(newTask.description);
-    newTask.title = sanitizeHtml(newTask.title);
-    newTask.cuid = cuid();
-    newTask.save((err, task) => {
+    // newTask.description = sanitizeHtml(newTask.description);
+    // newTask.title = sanitizeHtml(newTask.title);
+    // newTask.cuid = cuid();
+    Task.create(req.body, (err, task) => {
         if (err) {
+            console.log('something bad happened', err);
             res.status(500).send(err);
+        }else {
+            res.json({ task });
         }
-        
-        res.json({ task });
     });
 };
 

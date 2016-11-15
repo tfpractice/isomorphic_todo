@@ -11,7 +11,7 @@ import RaisedButton from 'material-ui/RaisedButton';
 const Home = ({ todos, dispatch, tasks }, context) => {
     return (
         <div id="todo-list">
-          <TasksView tasks={tasks} {...bindActionCreators(TodoActions, dispatch)}/>
+          <TasksView tasks={tasks} actions={(bindActionCreators(TaskActions, dispatch))}/>
           <TodosView todos={todos} {...bindActionCreators(TodoActions, dispatch)}/>
           <TodosForm {...bindActionCreators(TodoActions, dispatch)}/>
     </div>

@@ -22,14 +22,16 @@ export const TOGGLE_TASK_CHECK = 'TOGGLE_TASK_CHECK';
 export const TOGGLE_TASK_PRIVACY = 'TOGGLE_TASK_PRIVACY';
 
 export const GET_TASKS = 'GET_TASKS';
-export const UPDATE_TASKS = 'UPDATE_TASKS';
 export const CREATE_TASK = 'CREATE_TASK';
+export const INSERT_TASK = 'INSERT_TASK';
+export const UPDATE_TASKS = 'UPDATE_TASKS';
 export const EDIT_TASK = 'EDIT_TASK';
 export const DELETE_TASK = 'DELETE_TASK';
 
 export const TASK_ACTIONS = new Set([
     GET_TASKS,
     UPDATE_TASKS,
+    INSERT_TASK,
     CREATE_TASK,
     EDIT_TASK,
     DELETE_TASK,
