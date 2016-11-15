@@ -2,43 +2,19 @@ import React, { PropTypes } from 'react';
 import FlatButton from 'material-ui/FlatButton';
 import TaskForm from './form';
 
-const addTaskWVals = (values)=> {
-    // values.preventDefault();
-			 console.log('======SUBMITTING========');
-			 console.log('these are the values', values);
-			 return false;
-};
-//
-// onSubmit={(values, ...rest)=> {
-// 		 values.preventDefault();
-//
-// 		 console.log('======SUBMITTING========');
-// 		 console.log('these are the values', values);
-// 		 console.log('these are the rest', rest);
-// 		 return false;
-//  }
-const TasksView = ({ tasks, actions }, context) => {
-    console.log('context', context);
-    console.log('actions', actions);
-    return (
-
-<div className="tasks-list">
-	<TaskForm {...actions} onSubmit	={(values)=> {
-		console.log(values);
-		actions.createTask(values);
-		// addTaskWVals(values);
-	}}/>
-	<FlatButton label="TASKS" onClick={actions.fetchTasks}/>
-	{tasks.map((task, index) => (
-      <div style={btnStyle} key={index}>
+const TasksView = ({ tasks, actions }, context) =>  (
+	<div className="tasks-list">
+		<TaskForm {...actions} onSubmit	={actions.createTask}/>
+		<FlatButton label="TASKS" onClick={actions.fetchTasks}/>
+		{tasks.map((task, index) => (
+			<div style={btnStyle} key={index}>
 				<span>{task}</span>
-				<button style={btnStyle} data-id={index}>X</button>
-				<button style={btnStyle} data-id={index}>Edit</button>
+				<FlatButton label="Delete" data-id={index} />
+				<FlatButton label="Edit" data-id={index} />
 			</div>
-     ))}
+		))}
 	</div>
    );
-};
 
 TasksView.contextTypes = { muiTheme: React.PropTypes.object, };
 

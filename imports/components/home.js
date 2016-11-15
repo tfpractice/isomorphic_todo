@@ -8,7 +8,7 @@ import { actions as TaskActions } from '../tasks';
 import { connect } from 'react-redux';
 import RaisedButton from 'material-ui/RaisedButton';
 
-const Home = ({ todos, dispatch, tasks }, context) => {
+const Home = ({ todos, dispatch, tasks, tasksReducer }, context) => {
     return (
         <div id="todo-list">
           <TasksView tasks={tasks} actions={(bindActionCreators(TaskActions, dispatch))}/>
@@ -30,7 +30,7 @@ Home.contextTypes = { muiTheme: React.PropTypes.object, };
 const mapStateToProps = (state, own) => {
     const { todos, tasks, tasksReducer } = state;
     
-    return ({ todos, tasks, });
+    return ({ todos, tasks, tasksReducer });
 };
 
 export default connect(mapStateToProps)(Home);

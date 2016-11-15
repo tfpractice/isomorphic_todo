@@ -1,5 +1,5 @@
 import React, { Component, PropTypes } from 'react';
-// import { connect } from 'react-redux';
+
 import { reduxForm, Field } from 'redux-form';
 import MenuItem from 'material-ui/MenuItem';
 import { RadioButton } from 'material-ui/RadioButton';
@@ -12,21 +12,8 @@ import {
   TextField,
   Toggle
 } from 'redux-form-material-ui';
-// onSubmit={handleSubmit((values)=> {
-  // console.log('=============form porps======', values);
-  // return createTask(values);  })}
 
-
-// _id
-// title,
-// description,
-// completed,
-// private,
-// dateAdded
-// cuid
-const TaskFormF = ({ handleSubmit, onSubmit, createTask }) => {
-    // console.log('createTask', createTask);
-    return (
+const TaskFormF = ({ handleSubmit, onSubmit, createTask }) =>  (
   <form onSubmit={handleSubmit}>
     <Field name="title" component={TextField} hintText="What task"/>
     <Field name="description" component={TextField} hintText="What about it"/>
@@ -35,11 +22,7 @@ const TaskFormF = ({ handleSubmit, onSubmit, createTask }) => {
     <FlatButton type="submit"/>
 </form>
   );
-};
 
-
-
-// Decorate with redux-form
 const TaskForm = reduxForm({ form: 'TaskForm' })(TaskFormF);
 
 export default TaskForm;
