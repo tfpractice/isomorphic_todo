@@ -1,10 +1,9 @@
-import express from 'express';
+// import express from 'express';
 import React from 'react';
 import thunk from 'redux-thunk';
 import createLogger from 'redux-logger';
 import { renderToString } from 'react-dom/server';
 import { createMemoryHistory, match, RouterContext } from 'react-router';
-import createLocation from 'history/lib/createLocation';
 import routes from '../imports/routes';
 import { Provider } from 'react-redux';
 import { todos } from '../imports/todos';
@@ -12,39 +11,33 @@ import { reducer as tasks, tasksReducer, requestStatus, tasksRequestData } from 
 import promiseMiddleware from '../imports/lib/promiseMiddleware';
 import fetchComponentData from '../imports/lib/fetchComponentData';
 import { createStore, combineReducers, applyMiddleware } from 'redux';
-import getMuiTheme from 'material-ui/styles/getMuiTheme';
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import RaisedButton from 'material-ui/RaisedButton';
-import { green100, green500, green700 } from 'material-ui/styles/colors';
 import { reducer as form } from 'redux-form';
 
-export const handleRequest = (req, res, next) => {
+export const handleRequest = (req, res) => {
     const location = createMemoryHistory(req.url);
-    const location2 = createLocation(req.url);
     const reducer = combineReducers({ todos, tasks, tasksReducer, form });
     const logger = createLogger({ collapsed: (getState, action) => action.type });
     const store = applyMiddleware(promiseMiddleware, thunk, logger)(createStore)(reducer);
-    console.log('store', store.getState());
     match({ routes,
         location, }, (err, redirectLocation, renderProps) => {
         if (err) {
-            console.error('error from match', err);
-            return res.status(500).end('Internal server error');
+          console.error('error fro m match', err);
+          return res.status(500).end('Internal server error');
         }
         
         if (!renderProps)
             return res.status(404).end('Not found');
         
         function renderView() {
-            const InitialView = (
-                <Provider store={store}>
+          const InitialView = (
+              <Provider store={store}>
                     <RouterContext {...renderProps}/>
                 </Provider>
-            );
-            
-            const componentHTML = renderToString(InitialView);
-            const initialState = store.getState();
-            const HTML = `
+          );
+          
+          const componentHTML = renderToString(InitialView);
+          const initialState = store.getState();
+          const HTML = `
             <!DOCTYPE html>
                 <html>
                   <head>
@@ -64,9 +57,12 @@ export const handleRequest = (req, res, next) => {
                   </body>
                 </html>
                      `;
-            return HTML;
+          return HTML;
         }
         
-        fetchComponentData(store.dispatch, renderProps.components, renderProps.params).then(renderView).then(html => res.end(html)).catch(err => res.end(err.message));
-    });
-};
+        fetchComponentData(store.dispatch, renderProps.components, renderProps.params)
+        .then(renderView)
+        .then(html => res.end(html))
+        .catch(err => res.end(err.message));
+      });
+  };
