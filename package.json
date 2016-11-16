@@ -3,7 +3,7 @@
 	"version": "1.0.0",
 	"repository": "https://github.com/bananaoomarang/isomorphic-redux",
 	"description": "",
-	"main": "index.js",
+	"main": "./server/start-server.js",
 	"scripts": {
 		"start": "NODE_ENV=production NODE_PATH=$NODE_PATH:./imports node --harmony .",
 		"dev": "NODE_PATH=$NODE_PATH:./imports node --harmony .",
@@ -32,6 +32,7 @@
 		"eslint": "^3.10.1",
 		"eslint-plugin-react": "^6.7.1",
 		"express": "^4.13.3",
+		"extract-text-webpack-plugin": "^1.0.1",
 		"history": "^4.4.0",
 		"immutable": "^3.7.6",
 		"jscs": "^3.0.7",
@@ -50,6 +51,7 @@
 		"redux-logger": "^2.7.4",
 		"redux-thunk": "^2.1.0",
 		"sanitize-html": "^1.13.0",
+		"universal-webpack": "^0.1.41",
 		"webpack": "^1.12.9",
 		"webpack-dev-middleware": "^1.8.4",
 		"webpack-hot-middleware": "^2.13.2"
