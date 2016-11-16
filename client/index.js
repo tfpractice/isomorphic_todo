@@ -8,7 +8,7 @@ import { todos } from '../imports/todos';
 import { reducer as tasks, tasksReducer,
   requestStatus, tasksRequestData }from '../imports/tasks';
 import routes from '../imports/routes';
-import { promiseMiddleware } from 'lib';
+import { promiseMiddleware } from '../imports/lib';
 import { createStore, combineReducers, applyMiddleware } from 'redux';
 import { reducer as form } from 'redux-form';
 const initialState = window.__INITIAL_STATE__;
@@ -24,5 +24,5 @@ render(
   <Provider store={store} >
     <Router children={routes} history={history}/>
   </Provider>,
-	document.getElementById('react-view')
+  document.getElementById('react-view')
 );
