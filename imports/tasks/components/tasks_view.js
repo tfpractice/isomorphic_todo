@@ -13,7 +13,8 @@ const TasksView = ({ tasks, actions }) => {
   {tasks.map((task, index) => (
     <div key={index}>
       <span>{task.title}</span>
-      <FlatButton label="Delete" data-id={index} />
+      <FlatButton label="Delete" data-id={index}
+        onClick={()=>actions.deleteTask(task)} />
       <FlatButton label="Edit" data-id={index} />
       <TaskForm key={task.id}
         form={ `edit_form${task.id}` }
