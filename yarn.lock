@@ -3040,7 +3040,7 @@ mongodb@2.2.11:
     mongodb-core "2.0.13"
     readable-stream "2.1.5"
 
-mongoose@^4.6.6:
+mongoose:
   version "4.6.8"
   resolved "https://registry.yarnpkg.com/mongoose/-/mongoose-4.6.8.tgz#1fbb69b4de8623a3e3ee63a89425a227c5d24da9"
   dependencies:

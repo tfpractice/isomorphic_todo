@@ -23,8 +23,11 @@ const failure = () => TASK_REQUEST_FAILURE;
 
 const update = (newTasks) => (tState) => newTasks;
 const insert = (task) => (tasks) => tasks.concat(task);
-const edit = (task) => (tasks = []) =>
-  tasks.map(t => t.id === task.id ? { ...t, ...task } : t);
+const edit = (task) => (tasks = []) => {
+  console.log('TAKS TO EDIT', task);
+  console.log('TAKS TO EDIT ID', task.id);
+  return tasks.map(t => t.id === task.id ? { ...t, ...task } : t);
+};
 
 export const taskRequestSucess = ({ data: { tasks } }) => (dispatch) => {
     dispatch({ type: TASK_REQUEST_SUCCESS, curry: success });
@@ -56,11 +59,17 @@ export const updateTasks = (tasks) => {
 export const updateTask = (task)=>
   ({ type: EDIT_TASK, curry: edit(task) });
 
-export const editTask = ({ _id: id, cuid })=>(dispatch)=> (taskProps) => {
+export const editTask = ({ id, cuid })=>(dispatch)=> (taskProps) => {
   console.log('======= ID AND CUID======', id, cuid);
+  console.log('======= TASK PROPS======', taskProps);
   return axios.patch(`${API_URL}/tasks/${id}`, taskProps)
-.then(({ data:{ task } })=> dispatch(updateTask(task)))
-.catch(err => console.error('there was an error in update', err));};
+  .then(({ data:{ task } })=> {
+    console.log('======= TASK PROPS======', task);
+    console.log('======= TASK PROPS.ID======', task.id);
+    return dispatch(updateTask(task));
+  })
+  .catch(err => console.error('there was an error in update', err));
+};
 
 export const deleteTask = (id) =>
   ({ type: DELETE_TASK, id, });

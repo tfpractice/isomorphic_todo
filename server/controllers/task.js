@@ -30,8 +30,9 @@ export const addTask = (req, res) => {
     // }
     console.log('NOW IN tHE CONTROLLER');
     const newTask = new Task(req.body);
-    console.log('newTask', newTask);
-    
+    // console.log('newTask', newTask);
+    // console.log('=========newTaskID=====', newTask.id);
+    // console.log('=========TASK=====', TASK);
   // Let's sanitize inputs
     // newTask.description = sanitizeHtml(newTask.description);
     // newTask.title = sanitizeHtml(newTask.title);
@@ -41,6 +42,8 @@ export const addTask = (req, res) => {
           console.log('something bad happened');
           res.status(500).send(err);
         }else {
+          console.log('=========newTask=====', task);
+          console.log('=========newTaskID=====', task.id);
           res.json({ task });
         }
       });
@@ -48,12 +51,15 @@ export const addTask = (req, res) => {
 
 export const updateTask = (req, res)=> {
   console.log('===========request params========', req.params);
+  console.log('===========request body========', req.body);
   Task.findByIdAndUpdate(req.params.id, req.body, { new: true }, (err, task)=> {
     if (err) {
       console.log('something bad happened', err);
       res.status(500).send(err);
     }else {
       console.log('task returns', task);
+      console.log('=========UPDATED TASK ID=====', task.id);
+      
       res.json({ task });
     }
   });
