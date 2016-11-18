@@ -24,43 +24,21 @@ export const getTasks = (req, res) => {
  * @param res
  * @returns void
  */
-export const addTask = (req, res) =>
-  Task.create(req.body)
+export const addTask = (req, res) =>  Task.create(req.body)
   .then(task=> res.json({ task }))
   .catch(err=> {
     console.error('Task model insert error', err);
-    return res.status(500).send(err);});
+    return res.status(500).send(err);
+  });
 
-export const updateTask = (req, res)=> {
-//   Task.findByIdAndUpdate(req.params.id, req.body, { new: true }, (err, task)=> {
-//     if (err) {
-//       console.log('something bad happened', err);
-//       res.status(500).send(err);
-//     }else {
-//       console.log('task returns', task);
-//       console.log('=========UPDATED TASK ID=====', task.id);
-//
-//       res.json({ task });
-//     }
-//   });
-// };
-  
+export const updateTask = (req, res)=>
   Task.findByIdAndUpdate(req.params.id, req.body, { new: true })
   .then(task=>res.json({ task }))
-  .catch(err=> {console.log('error in Task Model Update', err);
-      res.status(500).send(err);});
-  //  (err, task)=> {
-  // if (err) {
-  //   console.log('something bad happened', err);
-  //   res.status(500).send(err);
-  // }else {
-  //   console.log('task returns', task);
-  //   console.log('=========UPDATED TASK ID=====', task.id);
-  //
-  //   res.json({ task });
-  // }
-// });
-};
+  .catch(err=> {
+      console.log('error in Task Model Update', err);
+      res.status(500).send(err);
+    });
+
 /**
  * Get a single task
  * @param req
