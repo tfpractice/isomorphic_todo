@@ -8,15 +8,10 @@ import { User } from '../models';
  * @param res
  * @returns void
  */
-export const getUsers = (req, res) => {
-    User.find().sort('-dateAdded').exec((err, users) => {
-        if (err) {
-          res.status(500).send(err);
-        }
-        
-        res.json({ users });
-      });
-  };
+export const getUsers = (req, res) =>
+  User.find().sort('-dateAdded').exec()
+    .then(users => res.json({ users }))
+    .catch(err =>   res.status(500).send(err));
 
 /**
  * Save a user
@@ -24,56 +19,33 @@ export const getUsers = (req, res) => {
  * @param res
  * @returns void
  */
-export const addUser = (req, res) => {
-    User.create(req.body, (err, user) => {
-        if (err) {
-          console.log('something bad happened');
-          res.status(500).send(err);
-        }
-        
-        res.json({ user });
+export const addUser = (req, res) =>
+  User.create(req.body)
+    .then(user => res.json({ user }))
+    .catch(err => {
+      console.error('User model insert error', err);
+      return res.status(500).send(err);
+    });
+
+export const updateUser = (req, res) =>
+  User.findByIdAndUpdate(req.params.id, req.body, { new: true }).exec()
+    .then(user => res.json({ user }))
+    .catch(err => {
+        console.log('error in User Model Update', err);
+        res.status(500).send(err);
       });
-  };
-  // const createUser = (newUser, cb)=> {
-  //   bcrypt.genSalt(10, (err, salt)=> {
-  //     if (err) {console.error('error in salting', err);}
-  //
-  //     bcrypt.hash(newUser.password, salt, (err, hash)=> {
-  //       if (err) {console.error('error in password', err);}
-  //
-  //       newUser.password = hash;
-  //       newUser.save(cb);
-  //     });
-  //   });
-  // };
-export const updateUser = (req, res)=> {
-  User.findByIdAndUpdate(req.params.id, req.body, { new: true }, (err, user)=> {
-    if (err) {
-      console.log('something bad happened', err);
-      res.status(500).send(err);
-    }else {
-      console.log('user returns', user);
-      console.log('=========UPDATED TASK ID=====', user.id);
-      
-      res.json({ user });
-    }
-  });
-};
+
 /**
  * Get a single user
  * @param req
  * @param res
  * @returns void
  */
-export const getUser = (req, res) => {
-    User.findOne({ cuid: req.params.cuid }).exec((err, user) => {
-        if (err) {
-          res.status(500).send(err);
-        }
-        
-        res.json({ user });
-      });
-  };
+export const getUser = (req, res) =>
+    User.findOne({ cuid: req.params.cuid }).exec()
+    .then(user => res.json({ user }))
+    .catch(err => res.status(500).send(err));
+
 
 /**
  * Delete a user

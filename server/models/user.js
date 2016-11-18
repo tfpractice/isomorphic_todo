@@ -8,6 +8,10 @@ const UserSchema = new Schema({ username: { type: String, index: true },
 { toObject: { virtuals: true }, toJSON: { virtuals: true } });
 
 const User = mongoose.model('User', UserSchema);
+
+// UserSchema.pre('save', (next)=>{
+//   
+// })
 const createUser = (newUser, cb)=> {
   bcrypt.genSalt(10, (err, salt)=> {
     if (err) {console.error('error in salting', err);}
