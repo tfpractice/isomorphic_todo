@@ -3,7 +3,6 @@ import express from 'express';
 import path from 'path';
 import bodyParser from 'body-parser';
 import mongoose from 'mongoose';
-import { server as serverConfig } from '../config';
 import { TaskRoutes } from './routes';
 import { handleRequest } from './requestHandler';
 import cookieParser from 'cookie-parser';
@@ -12,6 +11,9 @@ import flash from 'express-flash';
 import passport from 'passport';
 import localStrategy from 'passport-local';
 import expressValidator from 'express-validator';
+import { server as srvConf } from '../config';
+const { mongoURL } = srvConf;
+
 const app = express();
 if (process.env.NODE_ENV !== 'production') {
   require('../webpack.dev').default(app);
@@ -20,7 +22,7 @@ if (process.env.NODE_ENV !== 'production') {
 mongoose.Promise = global.Promise;
 
 // MongoDB Connection
-mongoose.connect(serverConfig.mongoURL, (error) => {
+mongoose.connect(mongoURL, (error) => {
   if (error) {
     console.error(
       'Please make sure Mongodb is installed and running!'); // eslint-disable-line no-console

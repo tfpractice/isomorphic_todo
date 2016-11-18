@@ -1,3 +1,4 @@
-import { Task } from './task';
+import  Task  from './task';
+import  User  from './user';
 
-export { Task };
+export { Task, User };

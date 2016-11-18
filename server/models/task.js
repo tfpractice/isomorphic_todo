@@ -9,4 +9,5 @@ const TaskSchema = new Schema({ title: String,
   cuid: { type: 'String', default: cuid, required: true }, },
    { toObject: { virtuals: true }, toJSON: { virtuals: true } });
 
-export const Task = mongoose.model('Task', TaskSchema);
+const Task = mongoose.model('Task', TaskSchema);
+export default Task;
