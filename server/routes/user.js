@@ -10,8 +10,6 @@ router.get('/register', UserController.addUser);
 // register new user
 router.post('/register', UserController.addUser);
 
-// register new user
-router.post('/login', UserController.addUser);
 
 // Get one user by id
 router.route('/users/:id').get(UserController.getUser);

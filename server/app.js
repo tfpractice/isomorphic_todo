@@ -40,35 +40,28 @@ app.use(session({ secret: 'secret', saveUninitialized: true, resave: true }));
 app.use(passport.initialize());
 app.use(passport.session());
 
-
-// passport.use(new LocalStrategy(
-//   function(username, password, done){
-//     User.findByUserName({ username })
-//     .then(user=>done(null, user))
-//     , function(err, user){
-//       if (err) { return done(err); }
-//
-//       if (!user) {
-//         return done(null, false, { message: 'Incorrect username.' });
-//       }
-//
-//       if (!user.validPassword(password)) {
-//         return done(null, false, { message: 'Incorrect password.' });
-//       }
-//
-//       return done(null, user);
-//     });
-//   }
-// ));
-
+passport.use(new LocalStrategy(
+  function(username, password, done){
+    User.findByUserName({ username })
+    .then(user=>
+      user.comparePassword(password)
+        .then(isValid => done(null, user))
+        .catch(err => done(null, false, { message: 'Incorrect password.' })))
+    .catch(done);
+  }
+));
+passport.serializeUser((user, done)=> done(null, user.id));
+passport.deserializeUser((id, done) =>
+  User.findById(id, (err, user) => {
+    done(err, user);
+  }));
 // login && set current user
 app.post('/login',
-passport.authenticate('local', { successRedirect: '/', failureRedirect: '/login' }),
-(req, res)=> {});
+passport.authenticate('local', { successRedirect: '/',
+  failureRedirect: '/login', }));
 
-app.use(expressValidator({ errorFormatter: function (param, msg, value){
+app.use(expressValidator({ errorFormatter: function (param, msg, value) {
       var namespace = param.split('.'), root    = namespace.shift(), formParam = root;
-      
       while (namespace.length) {
         formParam += '[' + namespace.shift() + ']';
       }
