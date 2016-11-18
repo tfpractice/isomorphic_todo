@@ -25,15 +25,22 @@ export const getTasks = (req, res) => {
  * @returns void
  */
 export const addTask = (req, res) => {
-    Task.create(req.body, (err, task) => {
-        if (err) {
-          console.log('something bad happened');
-          res.status(500).send(err);
-        }
-        
-        res.json({ task });
-      });
-  };
+  //   Task.create(req.body, (err, task) => {
+  //       if (err) {
+  //         console.log('something bad happened');
+  //         res.status(500).send(err);
+  //       }
+  //
+  //       res.json({ task });
+  //     });
+  // };
+  //
+  Task.create(req.body)
+  .then(task=> res.json({ task }))
+  .catch(err=> {
+    console.error('Task model insert error', err);
+    return res.status(500).send(err);});
+};
 
 export const updateTask = (req, res)=> {
   Task.findByIdAndUpdate(req.params.id, req.body, { new: true }, (err, task)=> {
