@@ -16,6 +16,7 @@
     "axios": "^0.15.2",
     "babel": "^6.3.13",
     "bcryptjs": "^2.3.0",
+    "bcryptjs-then": "^1.0.1",
     "body-parser": "^1.15.2",
     "bootstrap": "3",
     "connect-flash": "^0.1.1",

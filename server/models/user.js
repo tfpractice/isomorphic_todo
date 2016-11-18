@@ -7,22 +7,15 @@ const UserSchema = new Schema({ username: { type: String, index: true },
   name: { type: String, required: false }, },
 { toObject: { virtuals: true }, toJSON: { virtuals: true } });
 
+UserSchema.pre('save', (next)=> {
+  let user = this;
+   // only hash the password if it has been modified (or is new)
+  if (!user.isModified('password')) return next();
+  // generate a salt and hash the password using our new salt
+  Promise.resolve(bcrypt.hash(user.password, 10))
+  .then(hash=> {user.password = hash;    next();})
+  .catch(next);
+});
+
 const User = mongoose.model('User', UserSchema);
-
-// UserSchema.pre('save', (next)=>{
-//   
-// })
-const createUser = (newUser, cb)=> {
-  bcrypt.genSalt(10, (err, salt)=> {
-    if (err) {console.error('error in salting', err);}
-    
-    bcrypt.hash(newUser.password, salt, (err, hash)=> {
-      if (err) {console.error('error in password', err);}
-      
-      newUser.password = hash;
-      newUser.save(cb);
-    });
-  });
-};
-
 export default User;
