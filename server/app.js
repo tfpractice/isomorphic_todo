@@ -9,7 +9,7 @@ import cookieParser from 'cookie-parser';
 import session from 'express-session';
 import flash from 'express-flash';
 import passport from 'passport';
-import localStrategy from 'passport-local';
+import { Strategy as LocalStrategy } from 'passport-local';
 import expressValidator from 'express-validator';
 import { server as srvConf } from '../config';
 const { mongoURL } = srvConf;
@@ -39,6 +39,33 @@ app.use(express.static(path.join(__dirname, 'dist')));
 app.use(session({ secret: 'secret', saveUninitialized: true, resave: true }));
 app.use(passport.initialize());
 app.use(passport.session());
+
+
+// passport.use(new LocalStrategy(
+//   function(username, password, done){
+//     User.findByUserName({ username })
+//     .then(user=>done(null, user))
+//     , function(err, user){
+//       if (err) { return done(err); }
+//
+//       if (!user) {
+//         return done(null, false, { message: 'Incorrect username.' });
+//       }
+//
+//       if (!user.validPassword(password)) {
+//         return done(null, false, { message: 'Incorrect password.' });
+//       }
+//
+//       return done(null, user);
+//     });
+//   }
+// ));
+
+// login && set current user
+app.post('/login',
+passport.authenticate('local', { successRedirect: '/', failureRedirect: '/login' }),
+(req, res)=> {});
+
 app.use(expressValidator({ errorFormatter: function (param, msg, value){
       var namespace = param.split('.'), root    = namespace.shift(), formParam = root;
       

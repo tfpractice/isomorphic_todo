@@ -7,7 +7,7 @@ const UserSchema = new Schema({ username: { type: String, index: true },
   name: { type: String, required: false }, },
 { toObject: { virtuals: true }, toJSON: { virtuals: true } });
 
-UserSchema.pre('save', (next)=> {
+UserSchema.pre('save', function (next){
   let user = this;
    // only hash the password if it has been modified (or is new)
   if (!user.isModified('password')) return next();
@@ -18,4 +18,17 @@ UserSchema.pre('save', (next)=> {
 });
 
 const User = mongoose.model('User', UserSchema);
+
+UserSchema.statics.findByUserName =  function (username) {
+  return this.findOne({ username }).exec();
+};
+
+// UserSchema.statics.comparePassword = (submitted, hash, cb)=> {
+//   bcrypt.compare(submitted, hash).then(isValid=>cb(null, isValid))
+//   .catch(err => { throw err;});
+// };
+
+// UserSchema.methods.findSimilarTypes = function(cb) {
+  // return this.model('Animal').find({ type: this.type }, cb);
+// };
 export default User;

@@ -14,6 +14,17 @@ export const getUsers = (req, res) =>
     .catch(err =>   res.status(500).send(err));
 
 /**
+ * Get a single user
+ * @param req
+ * @param res
+ * @returns void
+ */
+export const getUser = (req, res) =>
+    User.findOne({ id: req.params.id }).exec()
+    .then(user => res.json({ user }))
+    .catch(err => res.status(500).send(err));
+
+/**
  * Save a user
  * @param req
  * @param res
@@ -35,16 +46,6 @@ export const updateUser = (req, res) =>
         res.status(500).send(err);
       });
 
-/**
- * Get a single user
- * @param req
- * @param res
- * @returns void
- */
-export const getUser = (req, res) =>
-    User.findOne({ cuid: req.params.cuid }).exec()
-    .then(user => res.json({ user }))
-    .catch(err => res.status(500).send(err));
 
 
 /**
