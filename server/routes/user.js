@@ -23,7 +23,7 @@ passport.deserializeUser((id, done) =>
     done(err, user);
   }));
 
-    // login && set current user
+// login && set current user
 router.post('/login',
  passport.authenticate('local', { successRedirect: '/',
   failureRedirect: '/login', }));
@@ -38,7 +38,7 @@ router.get('/logout', function (req, res) {
 // Get all Users
 // router.route('/users').get(UserController.getUsers);
 // register new user
-router.get('/register', UserController.addUser);
+// router.get('/register', UserController.addUser);
 
 // register new user
 router.post('/register', UserController.addUser);
