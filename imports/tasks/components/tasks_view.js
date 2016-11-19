@@ -10,6 +10,7 @@ const TasksView = ({ tasks, actions }) => {
   <TaskForm  form={'newTaskForm'}
     onSubmit={actions.createTask}
     onSubmitSuccess={resetForm('newTaskForm')}/>
+  <FlatButton onClick={actions.getTasks}/>
   {tasks.map((task, index) => (
     <div key={index}>
       <span>{task.title}</span>

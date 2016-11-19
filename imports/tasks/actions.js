@@ -29,6 +29,7 @@ const edit = (task) => (tasks = []) =>
 const remove = ({ id }) =>(tasks)=> tasks.filter(t=> t.id !== id);
 
 export const taskRequestSucess = ({ data: { tasks } }) => (dispatch) => {
+    console.log('CALLED TASK REQUEST success');
     dispatch({ type: TASK_REQUEST_SUCCESS, curry: success });
     return dispatch(updateTasks(tasks));
   };
@@ -39,8 +40,9 @@ export const taskRequestFailure = (err) =>(dispatch)=> {
 
 export const getTasks = () => (dispatch) => {
     dispatch({ type: TASK_REQUEST_PENDING, curry: pending });
+    console.log('RERIEVEING TASKS');
     return axios.get(`${API_URL}/tasks`)
-    .then(taskRequestSucess)
+    .then(res=> {console.log('RESPONSE RECIVED', res); return (taskRequestSucess(res)(dispatch));})
     .catch(taskRequestFailure);
   };
 
