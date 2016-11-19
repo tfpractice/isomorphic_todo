@@ -14,6 +14,6 @@ router.route('/tasks/:id').patch(TaskController.updateTask);
 router.route('/tasks').post(TaskController.addTask);
 
 // Delete a task by cuid
-router.route('/tasks/:cuid').delete(TaskController.deleteTask);
+router.route('/tasks/:id').delete(TaskController.deleteTask);
 
 export default router;

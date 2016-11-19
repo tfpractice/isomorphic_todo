@@ -1,20 +1,30 @@
 import React, { PropTypes } from 'react';
 import FlatButton from 'material-ui/FlatButton';
-import TaskForm, { EditForm } from './form';
+import { reset } from 'redux-form';
+import TaskForm from './form';
+const resetForm = (name)=>(action, dispatch)=> dispatch(reset(name));
+const TasksView = ({ tasks, actions }) => {
+  return (
 
-const TasksView = ({ tasks, actions }) =>  (
-  <div className="tasks-list">
-    <TaskForm {...actions} onSubmit	={actions.createTask}/>
-    <FlatButton label="TASKS" onClick={actions.fetchTasks}/>
-    {tasks.map((task, index) => (
-      <div key={index}>
-        <span>{task.title}</span>
-        <FlatButton label="Delete" data-id={index} />
-        <FlatButton label="Edit" data-id={index} />
-        <EditForm task={task} onSubmit={actions.editTask(task)}/>
+<div className="tasks-list">
+  <TaskForm  form={'newTaskForm'}
+    onSubmit={actions.createTask}
+    onSubmitSuccess={resetForm('newTaskForm')}/>
+  <FlatButton onClick={actions.getTasks}/>
+  {tasks.map((task, index) => (
+    <div key={index}>
+      <span>{task.title}</span>
+      <FlatButton label="Delete" data-id={index}
+        onClick={()=>actions.deleteTask(task)} />
+      <FlatButton label="Edit" data-id={index} />
+      <TaskForm key={task.id}
+        form={ `edit_form${task.id}` }
+        initialValues={task}
+        onSubmit={actions.editTask(task)}
+        onSubmitSuccess={resetForm(`edit_form${task.id}`)}/>
       </div>
     ))}
-  </div>);
+  </div>);};
 
 TasksView.contextTypes = { muiTheme: React.PropTypes.object, };
 

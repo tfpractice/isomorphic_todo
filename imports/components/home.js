@@ -11,13 +11,13 @@ const Home = ({ todos, dispatch, tasks, tasksReducer }) => {
     return (
         <div id="todo-list">
           <TasksView tasks={tasks} actions={(bindActionCreators(TaskActions, dispatch))}/>
-          <TodosView todos={todos} {...bindActionCreators(TodoActions, dispatch)}/>
-          <TodosForm {...bindActionCreators(TodoActions, dispatch)}/>
+          {/* <TodosView todos={todos} {...bindActionCreators(TodoActions, dispatch)}/> */}
+          {/* <TodosForm {...bindActionCreators(TodoActions, dispatch)}/> */}
         </div>
     );
   };
 
-Home.needs = [ TodoActions.getTodos, TaskActions.getTasks];
+Home.needs = [ TaskActions.getTasks];
 Home.propTypes = { todos: PropTypes.any.isRequired,
   dispatch: PropTypes.func.isRequired, };
 

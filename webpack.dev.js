@@ -6,15 +6,15 @@ import prodCfg from './webpack.prod.config.js';
 
 Object.assign = assign;
 
-const BABEL_QUERY = { presets: ['react', 'es2015'],
+const BABEL_QUERY = { presets: [ 'react', 'es2015'],
   plugins: [
-    ['transform-object-rest-spread'],
-    ['transform-class-properties'],
-    ['transform-decorators-legacy' ],
+    [ 'transform-object-rest-spread' ],
+    [ 'transform-class-properties' ],
+    [ 'transform-decorators-legacy'],
     [
       'react-transform', { transforms: [{ transform: 'react-transform-hmr',
-          imports: [ 'react' ],
-          locals: [ 'module' ], },], },
+          imports: ['react'],
+          locals: ['module'], }, ], },
     ],
   ], };
 
@@ -27,7 +27,7 @@ export default function(app) {
     module: { loaders: [{ test: /\.jsx?$/,
         exclude: /node_modules/,
         loader: 'babel',
-        query: BABEL_QUERY, },], },
+        query: BABEL_QUERY, }, ], },
     plugins: [
       new webpack.optimize.OccurenceOrderPlugin(),
       new webpack.HotModuleReplacementPlugin(),
